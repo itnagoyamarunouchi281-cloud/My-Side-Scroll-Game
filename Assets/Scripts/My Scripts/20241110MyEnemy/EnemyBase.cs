@@ -14,6 +14,7 @@ public class EnemyBase : MonoBehaviour
     protected Rigidbody rb; // Rigidbody/
     protected Image bossHPGage; // ボス用HPゲージ
     protected EnemyStatus enemyStatus;
+    protected Transform player; // プレイヤーオブジェクト
 
     // 各種変数
     // 基礎データ(インスペクタから入力)
@@ -45,6 +46,11 @@ public class EnemyBase : MonoBehaviour
     public void SetIsDead(bool flag)
     {
         isDead = flag;
+    }
+
+    public void SetPlayer(GameObject playerObj)
+    {
+        player = playerObj.transform;
     }
 
     [HideInInspector] public bool isVanishing; // 消滅中フラグ trueで消滅中である

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy02Move : MonoBehaviour
+public class Enemy02Move : EnemyBase
 {
     public enum Enemy02Mode
     {
@@ -31,11 +31,7 @@ public class Enemy02Move : MonoBehaviour
     [SerializeField] private float visualRange = 5.0f;
     [SerializeField] private float moveY = 0.9f;
 
-    private GameObject playerObj;
-    private Player player;
-
     private Animator animator;
-    private Rigidbody rb;
 
     private Vector3 initPos;
     private Transform thistrans;
@@ -65,9 +61,6 @@ public class Enemy02Move : MonoBehaviour
         // 初期位置取得
         initPos = this.transform.position;
 
-        playerObj = GameObject.Find("Actor");
-        player = playerObj.GetComponent<Player>();
-
         dir = 1;
         //transform.rotation = Quaternion.LookRotation(new Vector3(dir, 0, 0));
 
@@ -93,7 +86,7 @@ public class Enemy02Move : MonoBehaviour
         }
 
         // プレイヤーが倒れたら歩きモードへ
-        if(playerObj.GetComponent<PlayerStatus>().GetCurHp() <= 0 &&
+        if(player.GetComponent<PlayerStatus>().GetCurHp() <= 0 &&
             curMode != Enemy02Mode.WALK)
         {
             animator.SetBool("isChase", false);
@@ -513,7 +506,7 @@ public class Enemy02Move : MonoBehaviour
 
     public void ObakeSearch(float Dir)
     {
-        if (playerObj.GetComponent<PlayerStatus>().GetCurHp() > 0)
+        if (player.GetComponent<PlayerStatus>().GetCurHp() > 0)
         {
             // プレイヤーを発見したら
             // 右向いているとき
