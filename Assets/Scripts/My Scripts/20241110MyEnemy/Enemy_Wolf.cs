@@ -19,20 +19,20 @@ public class Enemy_Wolf : EnemyBase
         // 消滅中なら移動しない
         if (isVanishing)
         {
-            rb.linearVelocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
             return;
         }
 
         // 壁にぶつかったら向き変更
-        if (rightFacing && rb.linearVelocity.x <= 0.0f)
+        if (rightFacing && rb.velocity.x <= 0.0f)
             SetFacingRight(false);
-        else if (!rightFacing && rb.linearVelocity.x >= 0.0f)
+        else if (!rightFacing && rb.velocity.x >= 0.0f)
             SetFacingRight(true);
 
         // 横移動(等速)
         float xSpeed = movingSpeed;
         if (!rightFacing)
             xSpeed *= -1.0f;
-        rb.linearVelocity = new Vector2(xSpeed, rb.linearVelocity.y);
+        rb.velocity = new Vector2(xSpeed, rb.velocity.y);
     }
 }

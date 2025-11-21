@@ -124,7 +124,7 @@ public class EnemyBase : MonoBehaviour
             // 消滅中フラグをセット
             isVanishing = true;
             // 消滅中は物理演算なし
-            rb.linearVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
             rb.isKinematic = true;
             
             // その他撃破時処理

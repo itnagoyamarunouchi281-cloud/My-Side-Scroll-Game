@@ -94,7 +94,7 @@ public class Enemy_Frog : EnemyBase
                 Vector3 jumpWalk = new Vector2(jumpPower_Forward, jumpPower_Upward);
                 if (!rightFacing)
                     jumpWalk.x *= -1.0f;
-                rb.linearVelocity += jumpWalk;
+                rb.velocity += jumpWalk;
 
                 break;
 
@@ -127,7 +127,7 @@ public class Enemy_Frog : EnemyBase
         // è¡ñ≈íÜÇ»ÇÁà⁄ìÆÇµÇ»Ç¢
         if (isVanishing)
         {
-            rb.linearVelocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
             return;
         }
     }

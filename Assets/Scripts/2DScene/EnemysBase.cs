@@ -203,7 +203,7 @@ public class EnemysBase : MonoBehaviour
     private void HandleDeath()
     {
         isDead = true;
-        rb2D.linearVelocity = Vector2.zero;
+        rb2D.velocity = Vector2.zero;
         rb2D.bodyType = RigidbodyType2D.Kinematic;
 
         if (isBoss && bossDefeatEffect != null)
@@ -237,7 +237,7 @@ public class EnemysBase : MonoBehaviour
                 KNOCKBACK_X * attackDirection.x,
                 KNOCKBACK_Y
             );
-            rb2D.linearVelocity = knockback;
+            rb2D.velocity = knockback;
 
             // 一定時間後に通常状態へ戻す
             Invoke(nameof(EndKnockback), 0.5f); // 0.5秒後にノックバック終了

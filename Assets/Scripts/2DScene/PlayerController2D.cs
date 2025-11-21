@@ -72,12 +72,12 @@ public class PlayerController2D : MonoBehaviour
     void FixedUpdate()
     {
         // 移動処理
-        rb2D.linearVelocity = new Vector2(moveInput * speed, rb2D.linearVelocity.y);
+        rb2D.velocity = new Vector2(moveInput * speed, rb2D.velocity.y);
     }
 
     private void Jump()
     {
-        rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpForce);
+        rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce);
     }
 
     private void HandleLeaveMotion()
@@ -145,7 +145,7 @@ public class PlayerController2D : MonoBehaviour
                 KNOCKBACK_X * attackDirection.x,
                 KNOCKBACK_Y
             );
-            rb2D.linearVelocity = knockback;
+            rb2D.velocity = knockback;
 
             // 一定時間後に通常状態へ戻す
             Invoke(nameof(EndKnockback), 0.5f); // 0.5秒後にノックバック終了

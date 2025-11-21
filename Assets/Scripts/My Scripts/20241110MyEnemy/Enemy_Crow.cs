@@ -104,7 +104,7 @@ public class Enemy_Crow : EnemyBase
         // 消滅中なら移動しない
         if (isVanishing)
         {
-            rb.linearVelocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
             return;
         }
 
@@ -128,7 +128,7 @@ public class Enemy_Crow : EnemyBase
                 float xSpeed = movingSpeed;
                 if (!rightFacing)
                     xSpeed *= -1.0f;
-                rb.linearVelocity = new Vector2(xSpeed, 0.0f);
+                rb.velocity = new Vector2(xSpeed, 0.0f);
 
                 break;
 
@@ -150,7 +150,7 @@ public class Enemy_Crow : EnemyBase
                 float xSpeed_Survival = movingSpeed;
                 if (!rightFacing)
                     xSpeed_Survival *= -1.0f;
-                rb.linearVelocity = new Vector2(xSpeed_Survival, 0.0f);
+                rb.velocity = new Vector2(xSpeed_Survival, 0.0f);
 
                 break;
         }

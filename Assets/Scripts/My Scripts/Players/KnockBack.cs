@@ -284,7 +284,7 @@ public class KnockBack : MonoBehaviour
     private void Knock(float knockX)
     {
         // ノックバックの力をRigidbodyに加える
-        rb.linearVelocity = Vector2.zero; // 現在の速度をリセット
+        rb.velocity = Vector2.zero; // 現在の速度をリセット
         rb.AddForce(new Vector2(knockX, 0), ForceMode.Impulse);
     }
 
