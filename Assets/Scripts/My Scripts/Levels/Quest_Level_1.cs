@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Quest_Level_1 : MonoBehaviour
 {
     public int clearNum;
+    public Text coinAddText;
 
     public static UnityEvent OnEnemyDestroyCountEvent = new UnityEvent();
 
@@ -43,11 +45,13 @@ public class Quest_Level_1 : MonoBehaviour
     private void ResetScore()
     {
         enemyCounter = 0;
+        coinAddText.text = $"{EnemyData.EnemyType.É}àÍçÜ}:{enemyCounter}";
     }
 
     private void AddScore(int point)
     {
         enemyCounter += point;
+        coinAddText.text = $"{EnemyData.EnemyType.É}àÍçÜ}:{enemyCounter}";
     }
 
     public void GameClear()

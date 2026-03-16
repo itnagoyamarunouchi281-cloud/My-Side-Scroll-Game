@@ -32,8 +32,6 @@ public class DecorationManager : MonoBehaviour
             StaticDecoration.isInit = true;
 
             StaticItem.InitWarehouse();
-
-            StaticEnemy.InitWarehouse();
         }
 
         // ‘•ü•i‚ªì‚ç‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©

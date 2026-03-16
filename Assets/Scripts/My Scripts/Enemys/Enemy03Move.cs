@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy03Move : EnemyBase
+public class Enemy03Move : MonoBehaviour
 {
     public enum Enemy03Mode
     {
@@ -36,6 +36,12 @@ public class Enemy03Move : EnemyBase
 
     // プレイヤーを視認する範囲
     private float visualRange = 5.0f;
+
+    // privateでPlayer取得
+    private GameObject playerObj;
+
+    // プレイヤーの座標取得用
+    Player player;
 
     private Animator animator;
     private AnimatorStateInfo animeInfo;
@@ -75,6 +81,9 @@ public class Enemy03Move : EnemyBase
         // 初期位置取得
         initPos = this.transform.position;
 
+        playerObj = GameObject.Find("Actor");
+        player = playerObj.GetComponent<Player>();
+
         dir = 1;
         //transform.rotation = Quaternion.LookRotation(new Vector3(dir, 0, 0));
 
@@ -100,7 +109,7 @@ public class Enemy03Move : EnemyBase
 
         // プレイヤーが倒れたら歩きモードへ
         // 歩きモードになったら入らない
-        if (player.GetComponent<PlayerStatus>().GetCurHp() <= 0 &&
+        if (playerObj.GetComponent<PlayerStatus>().GetCurHp() <= 0 &&
             curMode != Enemy03Mode.WALK)
         {
             animator.SetBool("isAttack", false);
@@ -267,7 +276,7 @@ public class Enemy03Move : EnemyBase
     public void Search(float Dir)
     {
         // プレイヤーが倒れてなければ探す
-        if (player.GetComponent<PlayerStatus>().GetCurHp() > 0)
+        if (playerObj.GetComponent<PlayerStatus>().GetCurHp() > 0)
         {
             // プレイヤーを発見したら
             // 右向いているとき

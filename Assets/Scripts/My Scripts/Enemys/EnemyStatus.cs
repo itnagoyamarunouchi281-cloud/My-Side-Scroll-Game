@@ -50,7 +50,7 @@ public class EnemyStatus : MonoBehaviour
     void Update()
     {
         // âºÅFZÉLÅ[Ç≈HPåªè€
-        if(Input.GetKeyUp(KeyCode.Z))
+        if(Input.GetKeyUp(KeyCode.Q))
         {
             SetHp(20);            
         }

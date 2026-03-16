@@ -33,6 +33,9 @@ public class StaticDecoration : MonoBehaviour
         return IsAdd;
     }
 
+
+    
+    
     public static void SetIsCreate(bool[] iscreate)
     {
         for (int i = 0; i < IsCreate.Length; ++i)
@@ -46,8 +49,10 @@ public class StaticDecoration : MonoBehaviour
         return IsCreate;
     }
 
+
     public static void AddDecoration()
     {
 
     }
+
 }

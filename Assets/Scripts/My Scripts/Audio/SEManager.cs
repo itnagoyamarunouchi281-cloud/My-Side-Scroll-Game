@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class SEManager : MonoBehaviour
 {
+    public static SEManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public AudioClip[] SE = new AudioClip[2];
 
     AudioSource audioSource;

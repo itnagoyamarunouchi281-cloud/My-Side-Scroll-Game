@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class EnemysBase : MonoBehaviour
 {
@@ -53,9 +52,6 @@ public class EnemysBase : MonoBehaviour
     [HideInInspector] public bool isVanishing; // 消滅中フラグ trueで消滅中である
     [HideInInspector] public bool isInvis; // 無敵モード
     [HideInInspector] public bool rightFacing; // 右向きフラグ(falseで左向き)
-
-    // DoTween用
-    private Tween damageTween;  // 被ダメージ時演出Tween
 
     // 定数定義
     private readonly Color COL_DEFAULT = new Color(1.0f, 1.0f, 1.0f, 1.0f);    // 通常時カラー
@@ -193,7 +189,7 @@ public class EnemysBase : MonoBehaviour
         if (bossHpGauge != null)
         {
             float healthRatio = (float)nowHP / health;
-            bossHpGauge.DOFillAmount(healthRatio, 0.5f);
+            bossHpGauge.fillAmount = healthRatio;
         }
     }
 
@@ -211,9 +207,7 @@ public class EnemysBase : MonoBehaviour
             Instantiate(bossDefeatEffect, transform.position, Quaternion.identity);
         }
 
-        spriteRenderer.DOFade(0, 0.15f)
-            .SetLoops(7, LoopType.Yoyo)
-            .OnComplete(() => Destroy(gameObject));
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -221,9 +215,7 @@ public class EnemysBase : MonoBehaviour
     /// </summary>
     private void PlayDamageEffect()
     {
-        if (damageTween != null) damageTween.Kill();
         spriteRenderer.color = COL_DAMAGED;
-        damageTween = spriteRenderer.DOColor(COL_DEFAULT, 1.0f);
     }
 
     private void ApplyKnockback(Vector2 attackDirection)

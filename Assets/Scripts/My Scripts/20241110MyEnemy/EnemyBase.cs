@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 /// <summary>
 /// 全エネミー共通処理クラス
@@ -14,7 +13,6 @@ public class EnemyBase : MonoBehaviour
     protected Rigidbody rb; // Rigidbody/
     protected Image bossHPGage; // ボス用HPゲージ
     protected EnemyStatus enemyStatus;
-    protected Transform player; // プレイヤーオブジェクト
 
     // 各種変数
     // 基礎データ(インスペクタから入力)
@@ -48,17 +46,9 @@ public class EnemyBase : MonoBehaviour
         isDead = flag;
     }
 
-    public void SetPlayer(GameObject playerObj)
-    {
-        player = playerObj.transform;
-    }
-
     [HideInInspector] public bool isVanishing; // 消滅中フラグ trueで消滅中である
     [HideInInspector] public bool isInvis; // 無敵モード
     [HideInInspector] public bool rightFacing; // 右向きフラグ(falseで左向き)
-
-    // DoTween用
-    private Tween damageTween;  // 被ダメージ時演出Tween
 
     // 定数定義
     private readonly Color COL_DEFAULT = new Color(1.0f, 1.0f, 1.0f, 1.0f);    // 通常時カラー
@@ -117,16 +107,12 @@ public class EnemyBase : MonoBehaviour
         if (bossHPGage != null)
         {
             float hpRatio = (float)nowHP / maxHP;
-            bossHPGage.DOFillAmount(hpRatio, 0.5f);
+            bossHPGage.fillAmount = hpRatio;
         }
 
         if (nowHP <= 0.0f)
-        {// HP0の場合
-         // 被ダメージTween初期化
-            if (damageTween != null)
-                damageTween.Kill();
-            damageTween = null;
-
+        {
+            // HP0の場合
             // 消滅中フラグをセット
             isVanishing = true;
             // 消滅中は物理演算なし
@@ -135,23 +121,23 @@ public class EnemyBase : MonoBehaviour
             
             // その他撃破時処理
             if (isBoss)
-            {// ボス撃破時
-             // ボス撃破パーティクルを生成
+            {
+                // ボス撃破時
+                // ボス撃破パーティクルを生成
                 var obj = Instantiate(bossDefeatParticlePrefab);
                 obj.transform.position = transform.position;
                 // ゲームクリア処理
                 areaManager.stageManager.StageClear();
             }
             else
-            {// ザコ撃破時
+            {
+                // ザコ撃破時
             }
         }
         else
-        {// まだHPが残っている場合
-         // 被ダメージTween初期化
-            if (damageTween != null)
-                damageTween.Kill();
-            damageTween = null;
+        {
+            // まだHPが残っている場合
+
             // 被ダメージ演出再生
 
         }
@@ -195,14 +181,16 @@ public class EnemyBase : MonoBehaviour
         Vector2 lscale = gameObject.transform.localScale;
 
         if (!isRight)
-        {// 左向き
+        {
+            // 左向き
             lscale.x *= -1;
 
             // 右向きフラグoff
             rightFacing = false;
         }
         else
-        {// 右向き
+        {
+            // 右向き
             lscale.x *= 1;
 
             // 右向きフラグon

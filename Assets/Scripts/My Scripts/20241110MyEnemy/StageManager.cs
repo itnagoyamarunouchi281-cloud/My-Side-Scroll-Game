@@ -1,9 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening;
 
 /// <summary>
 /// ステージマネージャクラス
@@ -21,7 +21,7 @@ public class StageManager : MonoBehaviour
     // ステージ内の全エリアの配列(Startで取得)
     private AreaManager[] inStageAreas;
 
-    
+    private int currentStage = 0;
 
     // Start
     void Start()
@@ -55,6 +55,18 @@ public class StageManager : MonoBehaviour
         // BGMを変更する
         GetComponent<AudioSource>().clip = bossBGMClip;
         GetComponent<AudioSource>().Play();
+    }
+
+    /// <summary>
+    /// 
+    //// ステージを変更する
+    public void ChangeStage(int nextStage)
+    {
+        currentStage = nextStage;
+        Debug.Log($"Stage changed to {currentStage}");
+
+        foreach (var targetAreaManager in inStageAreas)
+            targetAreaManager.ActiveArea();
     }
 
     public void StageClear()

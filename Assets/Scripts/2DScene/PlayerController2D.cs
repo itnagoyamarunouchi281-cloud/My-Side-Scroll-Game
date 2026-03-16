@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -33,8 +35,17 @@ public class PlayerController2D : MonoBehaviour
     private bool isInvincible = false;
     private bool isKnockback = false; // ノックバック中フラグ
 
+    public static UnityEvent OnPlayerDamagedEvent = new UnityEvent();
+
     void Start()
     {
+        OnPlayerDamagedEvent.AddListener(() =>
+        {
+            // ダメージ処理
+            Vector2 attackDirection = new Vector2(-transform.localScale.x, 0).normalized; // 攻撃方向を計算
+            ApplyKnockback(attackDirection);
+        });
+
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 

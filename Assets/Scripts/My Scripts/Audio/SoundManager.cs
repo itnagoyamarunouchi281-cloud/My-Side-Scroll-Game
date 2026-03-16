@@ -70,7 +70,8 @@ public class SESoundData
     {
         Attack,
         Damage,
-        Hoge, // ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
+        ItemGet, // ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
+        Item2Hit,
     }
 
     public SE se;

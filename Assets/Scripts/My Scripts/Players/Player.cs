@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     private CharacterController controller;
     private KnockBack knock;
     
-    private Animator anime;
+    [SerializeField] private Animator anime;
 
     private bool Jump;
     private bool isJump;
@@ -49,7 +49,6 @@ public class Player : MonoBehaviour
 
         controller = GetComponent<CharacterController>();
         knock = GetComponent<KnockBack>();
-        anime = GetComponent<Animator>();
 
         // コライダー取得
         scissors1 = GameObject.Find("scissors1");
@@ -69,7 +68,7 @@ public class Player : MonoBehaviour
         effectpos.y = this.gameObject.transform.position.y - 1.1f;
 
         // 立ち止まっているとき
-        if (anime.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (anime.GetCurrentAnimatorStateInfo(0).IsName("Anim_Idle"))
         {
             // 放置時間が一定時間超えたら
             LeaveTime += Time.deltaTime;
@@ -169,21 +168,27 @@ public class Player : MonoBehaviour
             // 操作不可でなければ
             if (!knock.GetIsInoperable())
             {
-                if (x > 0)
+                if(x == 0)
                 {
-                    LeaveTime = 0.0f;
-                    anime.SetBool("isWalk", true);
-                    moveDirection.x = Input.GetAxis("Horizontal") * speed;
-                    gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    WalkTimer++;
+                    LeaveTime += Time.deltaTime;
                 }
-
-                if (x < 0)
+                else if (x > 0)
                 {
                     LeaveTime = 0.0f;
                     anime.SetBool("isWalk", true);
                     moveDirection.x = Input.GetAxis("Horizontal") * speed;
                     gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+                    charaobj.transform.localScale = new Vector3(1, 1, 1);
+                    WalkTimer++;
+                }
+
+                else if (x < 0)
+                {
+                    LeaveTime = 0.0f;
+                    anime.SetBool("isWalk", true);
+                    moveDirection.x = Input.GetAxis("Horizontal") * speed;
+                    gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    charaobj.transform.localScale = new Vector3(-1, 1, 1);
                     WalkTimer++;
                 }
             }
@@ -240,7 +245,7 @@ public class Player : MonoBehaviour
     private void AttackMotion()
     {
         // 攻撃１開始
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetKeyDown(KeyCode.Space))
         {
             LeaveTime = 0.0f;
             anime.SetTrigger("Attack");

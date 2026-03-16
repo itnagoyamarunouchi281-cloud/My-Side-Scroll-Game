@@ -109,10 +109,41 @@ public class AttackContoroll : MonoBehaviour
         return hitflg;
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        // オブジェクトタグがEnemyのとき
+        if (!hitflg && other.tag == "Enemy")
+        {
+            // 敵キャラを倒したかを取得
+            enemyInfo = other.gameObject.GetComponent<EnemyInfo>();
+            
+            enemy = other.gameObject.GetComponent<Enemy>();
+            if (enemy == null) return;
+            enemyStatus = other.gameObject.GetComponent<EnemyStatus>();
+            
+            Attack();
+
+            PlayerController2D.OnPlayerDamagedEvent.Invoke();
+
+            hitflg = true;
+            if (damageEffect != null)
+            {
+                GameObject effect = Instantiate(damageEffect) as GameObject;
+                effect.transform.position = new Vector3(
+                    this.gameObject.transform.position.x,
+                    this.gameObject.transform.position.y + effectPosY,
+                    this.gameObject.transform.position.z - 2.0f);
+            }
+            AttackCnt++;
+        }
+    }
+
     void OnTriggerExit(Collider t)
     {
         //Debug.Log("atattayo!!");
         //Hitflg = false;
+
+        hitflg = false;
 
         AttackCnt = 1;
     }

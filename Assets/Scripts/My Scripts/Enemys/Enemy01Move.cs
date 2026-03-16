@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy01Move : EnemyBase
+public class Enemy01Move : MonoBehaviour
 {
     public enum Enemy01Mode
     {
@@ -33,10 +33,12 @@ public class Enemy01Move : EnemyBase
 
     // 他のフィールド
     private Vector3 initPos;
+    private GameObject playerObj;
+    private Player player;
     private Animator animator;
     private AnimatorStateInfo animeInfo;
     private Transform thistrans;
-    private PlayerStatus playerStatus;
+    private Rigidbody rb;
     private GameObject scissors;
     private Vector3 pos;
     private float KnockTime = 0.0f;
@@ -65,8 +67,8 @@ public class Enemy01Move : EnemyBase
         // 初期位置取得
         initPos = this.transform.position;
 
-        // プレイヤーオブジェクト取得
-        playerStatus = player.GetComponent<PlayerStatus>();
+        playerObj = GameObject.Find("Actor");
+        player = playerObj.GetComponent<Player>();
 
         dir = 1;
         //transform.rotation = Quaternion.LookRotation(new Vector3(dir, 0, 0));
@@ -93,7 +95,7 @@ public class Enemy01Move : EnemyBase
 
         // プレイヤーが倒れたら歩きモードへ
         // 歩きモードになったら入らない
-        if (player.GetComponent<PlayerStatus>().GetCurHp() <= 0 &&
+        if (playerObj.GetComponent<PlayerStatus>().GetCurHp() <= 0 &&
             curMode != Enemy01Mode.WALK)
         {
             animator.SetBool("isAttack", false);
@@ -291,7 +293,7 @@ public class Enemy01Move : EnemyBase
     public void Search(float Dir)
     {
         // プレイヤーが倒れてなければ探す
-        if (player.GetComponent<PlayerStatus>().GetCurHp() > 0)
+        if (playerObj.GetComponent<PlayerStatus>().GetCurHp() > 0)
         {
             // プレイヤーを発見したら
             // 右向いているとき
