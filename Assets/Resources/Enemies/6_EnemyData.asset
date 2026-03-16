@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 6_EnemyData
   m_EditorClassIdentifier: 
   enemyType: 6
-  enemyName: Enemy7
+  enemyName: "\u884C\u3063\u305F\u308A\u6765\u305F\u308A\u3059\u308B\u751F\u304D\u7269"
   itemtype: 6
-  Droprate: 100
+  Droprate: 1000
   maxHp: 100
-  ATK: 13
-  DEF: 3
+  ATK: 3
+  DEF: 1
