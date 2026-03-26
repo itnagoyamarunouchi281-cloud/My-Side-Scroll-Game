@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class EnemyNum : MonoBehaviour
 {
-    // 敵ごとに数を表示するGameObject配列
     public GameObject[] DispNum = null;
     public int[] enemyIndex;
 
@@ -13,7 +12,6 @@ public class EnemyNum : MonoBehaviour
 
     void Start()
     {
-        // オブジェクトからTextコンポーネントを取得
         for (int i = 0; i < DispNum.Length; i++)
         {
             enemyNum[i] = DispNum[i].GetComponent<Text>();
@@ -31,7 +29,6 @@ public class EnemyNum : MonoBehaviour
 
     void Update()
     {
-        // テキストの表示を入れ替える
-        enemyNum[0].text = $"{EnemyData.EnemyType.マ一号} " + myEnemy.GetStorage()[0] + $"/{enemyIndex[0]}";
+        enemyNum[0].text = $"{EnemyData.EnemyType.TYPE1}" + myEnemy.GetStorage()[0] + $"/{enemyIndex[0]}";
     }
 }

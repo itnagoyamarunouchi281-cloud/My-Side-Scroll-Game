@@ -4,57 +4,57 @@ using UnityEngine;
 
 public class KnockBack : MonoBehaviour
 {
-    // ƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒXæ“¾—p
+    // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½æ“¾ï¿½p
     private PlayerStatus playerStatus;
-    // ÚG‚µ‚½uŠÔ‚ÌƒvƒŒƒCƒ„[À•W
+    // ï¿½ÚGï¿½ï¿½ï¿½ï¿½ï¿½uï¿½Ô‚Ìƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½W
     Vector3 prePos;
-    // ÚG‚µ‚½“G‚ÌˆÊ’uæ“¾
+    // ï¿½ÚGï¿½ï¿½ï¿½ï¿½ï¿½Gï¿½ÌˆÊ’uï¿½æ“¾
     Vector3 enemyPos;
-    // ƒmƒbƒNƒoƒbƒNˆ—n‚Ü‚Á‚Ä‚¢‚é‚©”Û‚©
+    // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½nï¿½Ü‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½Û‚ï¿½
     bool isStart = false;
-    // ƒmƒbƒNƒoƒbƒNˆ—‚ÌƒXƒeƒbƒv(‰½”Ô–Ú‚Ìˆ—‚©)
+    // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ÌƒXï¿½eï¿½bï¿½v(ï¿½ï¿½ï¿½Ô–Ú‚Ìï¿½ï¿½ï¿½ï¿½ï¿½)
     int Step = 0;
 
-    // “G‚ÌƒXƒe[ƒ^ƒXæ“¾—p
+    // ï¿½Gï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½æ“¾ï¿½p
     EnemyStatus enemyStatus;
 
     //CharacterController controller;
     Rigidbody rb;
 
-    // ‘€ì•s‰ÂŠÔ
+    // ï¿½ï¿½ï¿½ï¿½sï¿½Âï¿½ï¿½ï¿½
     float inoperableTime = 0.1f;
 
-    // ‘€ì•s‰Âƒtƒ‰ƒO
+    // ï¿½ï¿½ï¿½ï¿½sï¿½Âƒtï¿½ï¿½ï¿½O
     bool isInoperable = false;
 
-    // --- “_–Å—p ---
-    // q‚ÌRenderer‚Ì”z—ñ
+    // --- ï¿½_ï¿½Å—p ---
+    // ï¿½qï¿½ï¿½Rendererï¿½Ì”zï¿½ï¿½
     Renderer[] childrenRenderer;
 
-    // ¡childRenderer‚ª—LŒø‚©–³Œø‰»‚Ìƒtƒ‰ƒO
+    // ï¿½ï¿½childRendererï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒtï¿½ï¿½ï¿½O
     bool isEnabledRenderers;
 
-    // ¡ƒ_ƒ[ƒW‚ğó‚¯‚Ä‚¢‚é‚©‚Ìƒtƒ‰ƒO
+    // ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ó‚¯‚Ä‚ï¿½ï¿½é‚©ï¿½Ìƒtï¿½ï¿½ï¿½O
     bool isDamaged;
 
-    // ƒŠƒZƒbƒg‚·‚é‚Ìˆ×‚ÉƒRƒ‹[ƒ`ƒ“‚ğ•Û‚µ‚Ä‚¨‚­
+    // ï¿½ï¿½ï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½éï¿½Ìˆ×‚ÉƒRï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½ï¿½Ûï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
     Coroutine flicker;
 
-    // ƒ_ƒ[ƒW‚Ì“_–Å‚Ì’·‚³B
+    // ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½Ì“_ï¿½Å‚Ì’ï¿½ï¿½ï¿½ï¿½B
     float flickerDuration = 0.6f;
 
-    // –³“GŠÔ
+    // ï¿½ï¿½ï¿½Gï¿½ï¿½ï¿½ï¿½
     float invincibleTime;
 
-    // ƒ_ƒ[ƒW“_–Å‚Ì‡ŒvŒo‰ßŠÔ
+    // ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½_ï¿½Å‚Ìï¿½ï¿½vï¿½oï¿½ßï¿½ï¿½ï¿½
     float flickerTotalElapsedTime;
-    // ƒ_ƒ[ƒW“_–Å‚ÌRenderer‚Ì—LŒøE–³ŒøØ‚è‘Ö‚¦—p‚ÌŒo‰ßŠÔ
+    // ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½_ï¿½Å‚ï¿½Rendererï¿½Ì—Lï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ø‚ï¿½Ö‚ï¿½ï¿½pï¿½ÌŒoï¿½ßï¿½ï¿½ï¿½
     float flickerElapsedTime;
 
-    // ƒ_ƒ[ƒW“_–Å‚ÌRenderer‚Ì—LŒøE–³ŒøØ‚è‘Ö‚¦—p‚ÌƒCƒ“ƒ^[ƒoƒ‹
+    // ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½_ï¿½Å‚ï¿½Rendererï¿½Ì—Lï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ø‚ï¿½Ö‚ï¿½ï¿½pï¿½ÌƒCï¿½ï¿½ï¿½^ï¿½[ï¿½oï¿½ï¿½
     float flickerInterval = 0.075f;
 
-    // ƒmƒbƒNƒoƒbƒNŠÔ(‚±‚êˆÈã‚ÌŠÔ‚ªŒo‰ß‚µ‚½‚ç©“®‚ÅŸ‚ÌƒXƒeƒbƒv)
+    // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Èï¿½Ìï¿½ï¿½Ô‚ï¿½ï¿½oï¿½ß‚ï¿½ï¿½ï¿½ï¿½ç©ï¿½ï¿½ï¿½Åï¿½ï¿½ÌƒXï¿½eï¿½bï¿½v)
     float KnockTime = 0.0f;
 
     Animator anime;
@@ -64,7 +64,7 @@ public class KnockBack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // “_–ÅŠÔ‚Æ–³“GŠÔ‚ğ‹¤—L
+        // ï¿½_ï¿½Åï¿½ï¿½Ô‚Æ–ï¿½ï¿½Gï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½L
         invincibleTime = flickerDuration;
 
         playerStatus = GetComponent<PlayerStatus>();
@@ -80,7 +80,7 @@ public class KnockBack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ƒmƒbƒNƒoƒbƒNˆ—ƒXƒ^[ƒg
+        // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½^ï¿½[ï¿½g
         if (isStart && !anime.GetCurrentAnimatorStateInfo(0).IsName("Knock"))
         {
             knockback();
@@ -88,23 +88,23 @@ public class KnockBack : MonoBehaviour
     }
 
 
-    // ƒmƒbƒNƒoƒbƒNŠÖ”
+    // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½Öï¿½
     public void knockback()
     {
         switch (Step)
         {
-            // ƒvƒŒƒCƒ„[‚ÌHP‚ğŒ¸‚ç‚·
+            // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½HPï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
             case 0:
                 anime.SetBool("isKnock", true);
-                // ƒvƒŒƒCƒ„[‚ªó‚¯‚éƒ_ƒ[ƒWi“G‚ÌUŒ‚—Í - ƒvƒŒƒCƒ„[‚Ì–hŒä—Íj
-                // ó‚¯‚éƒ_ƒ[ƒW‚O‚æ‚è‘å‚«‚¢
+                // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ó‚¯‚ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½iï¿½Gï¿½ÌUï¿½ï¿½ï¿½ï¿½ - ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì–hï¿½ï¿½Íj
+                // ï¿½ó‚¯‚ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½Oï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½ï¿½
                 
                 if (enemyStatus.GetATK() - StaticStatus.GetPlayerDEF() > 0)
                 {
                     //Debug.Log(enemyStatus.GetATK() - StaticStatus.GetPlayerDEF());
                     playerStatus.SetMinusHp(enemyStatus.GetATK() - StaticStatus.GetPlayerDEF());
                 }
-                // ‚OˆÈ‰º‚È‚çÅ’á‚Pƒ_ƒ[ƒW
+                // ï¿½Oï¿½È‰ï¿½ï¿½È‚ï¿½Å’ï¿½Pï¿½_ï¿½ï¿½ï¿½[ï¿½W
                 else
                 {
                     playerStatus.SetMinusHp(1);
@@ -113,25 +113,25 @@ public class KnockBack : MonoBehaviour
                 Step++;
                 break;
 
-            // ƒvƒŒƒCƒ„[‹Â‚¯”½‚éiƒqƒbƒgƒXƒgƒbƒvHj
+            // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½qï¿½bï¿½gï¿½Xï¿½gï¿½bï¿½vï¿½Hï¿½j
             case 1:
 
-                // ƒŒƒCƒ„[‚ğInvisible‚É•ÏX(“–‚½‚è”»’è‚ğ‚È‚­‚·)
+                // ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½Invisibleï¿½É•ÏX(ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½)
                 this.gameObject.layer = LayerMask.NameToLayer("Invisible");
 
-                // ‘€ì•s‰Âƒtƒ‰ƒO‚ğƒIƒ“
+                // ï¿½ï¿½ï¿½ï¿½sï¿½Âƒtï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½Iï¿½ï¿½
                 isInoperable = true;
 
-                // ©•ª‚ÌˆÊ’u‚ÆÚG‚µ‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğŒvZ‚µ‚Ä
-                // ‹——£‚Æ•ûŒü‚ğo‚µ‚Ä³‹K‰»
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ÌˆÊ’uï¿½ÆÚGï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÌˆÊ’uï¿½ï¿½ï¿½vï¿½Zï¿½ï¿½ï¿½ï¿½
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Æ•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Äï¿½ï¿½Kï¿½ï¿½
                 Vector3 distination = new Vector3((this.transform.position.x - enemyPos.x), 0, 0).normalized;
 
                 if (Mathf.Abs(prePos.x - this.transform.position.x) < 1)
                 {
-                    // ƒmƒbƒNƒoƒbƒN
+                    // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½N
                     Knock(distination.x);
 
-                    // •Ç‚É‹l‚Ü‚Á‚½‚Æ‚«‚æ‚¤...‹­§“I‚ÉŸ‚ÌƒXƒeƒbƒv‚Ö
+                    // ï¿½Ç‚É‹lï¿½Ü‚ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½æ‚¤...ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½Éï¿½ï¿½ÌƒXï¿½eï¿½bï¿½vï¿½ï¿½
                     KnockTime += Time.deltaTime;
                     if (KnockTime > 1.0f)
                     {
@@ -140,7 +140,7 @@ public class KnockBack : MonoBehaviour
                 }
                 else
                 {
-                    // ˆÚ“®Š®—¹‚µ‚½‚çŸ‚ÌƒXƒeƒbƒv‚Ö
+                    // ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½çŸï¿½ÌƒXï¿½eï¿½bï¿½vï¿½ï¿½
                     Step++;
                     anime.SetBool("isKnock", false);
                 }
@@ -148,7 +148,7 @@ public class KnockBack : MonoBehaviour
 
 
                 break;
-            // “_–Å
+            // ï¿½_ï¿½ï¿½
             case 2:
                 if (isDamaged)
                     return;
@@ -156,7 +156,7 @@ public class KnockBack : MonoBehaviour
                 Step++;
                 break;
 
-            // –³“GŠÔ(2•bAƒ_ƒ[ƒWd’¼1•b‚İ)
+            // ï¿½ï¿½ï¿½Gï¿½ï¿½ï¿½ï¿½(2ï¿½bï¿½Aï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½dï¿½ï¿½1ï¿½bï¿½ï¿½ï¿½ï¿½)
             case 3:
                 if (0 < invincibleTime)
                 {
@@ -167,7 +167,7 @@ public class KnockBack : MonoBehaviour
                     }
                     else
                     {
-                        // ‚P•bŒo‚Á‚½‚ç‘€ì•s‰Âƒtƒ‰ƒOƒIƒt
+                        // ï¿½Pï¿½bï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ç‘€ï¿½ï¿½sï¿½Âƒtï¿½ï¿½ï¿½Oï¿½Iï¿½t
                         isInoperable = false;
                     }
                 }
@@ -179,17 +179,17 @@ public class KnockBack : MonoBehaviour
 
             
             case 4:
-                // ƒmƒbƒNƒoƒbƒNˆ—I—¹
+                // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½
                 isStart = false;
-                // ˆ—‡‚ğÅ‰‚É–ß‚·
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åï¿½ï¿½É–ß‚ï¿½
                 Step = 0;
-                // ƒŒƒCƒ„[‚ğPlayer‚É–ß‚·
+                // ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½Playerï¿½É–ß‚ï¿½
                 this.gameObject.layer = LayerMask.NameToLayer("Player");
-                // –³“GŠÔ‰Šú‰»
+                // ï¿½ï¿½ï¿½Gï¿½ï¿½ï¿½Ôï¿½ï¿½ï¿½ï¿½ï¿½
                 invincibleTime = 2.0f;
-                // ‘€ì•s‰ÂŠÔ‰Šú‰»
+                // ï¿½ï¿½ï¿½ï¿½sï¿½Âï¿½ï¿½Ôï¿½ï¿½ï¿½ï¿½ï¿½
                 inoperableTime = 0.1f;
-                // ‹­§‚ÅŸ‚ÌƒXƒeƒbƒv‚Ö
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Åï¿½ï¿½ÌƒXï¿½eï¿½bï¿½vï¿½ï¿½
                 KnockTime = 0.0f;
                 break;
         }
@@ -225,9 +225,9 @@ public class KnockBack : MonoBehaviour
 
             if (flickerInterval <= flickerElapsedTime)
             {
-                //‚±‚±‚ª”íƒ_ƒ[ƒW“_–Å‚Ìˆ—B
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½_ï¿½Å‚Ìï¿½ï¿½ï¿½ï¿½B
                 flickerElapsedTime = 0;
-                //Renderer‚Ì—LŒøA–³Œø‚Ì”½“]B
+                //Rendererï¿½Ì—Lï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Ì”ï¿½ï¿½]ï¿½B
                 isEnabledRenderers = !isEnabledRenderers;
                 SetEnabledRenderers(isEnabledRenderers);
             }
@@ -235,10 +235,10 @@ public class KnockBack : MonoBehaviour
 
             if (flickerDuration <= flickerTotalElapsedTime)
             {
-                //‚±‚±‚ª”íƒ_ƒ[ƒW“_–Å‚ÌI—¹‚Ìˆ—B
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½_ï¿½Å‚ÌIï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½B
                 isDamaged = false;
 
-                //ÅŒã‚É‚Í•K‚¸Renderer‚ğ—LŒø‚É‚·‚é(Á‚¦‚Á‚Ï‚È‚µ‚É‚È‚é‚Ì‚ğ–h‚®)B
+                //ï¿½ÅŒï¿½É‚Í•Kï¿½ï¿½Rendererï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï‚È‚ï¿½ï¿½É‚È‚ï¿½Ì‚ï¿½hï¿½ï¿½)ï¿½B
                 isEnabledRenderers = true;
                 SetEnabledRenderers(true);
 
@@ -248,7 +248,7 @@ public class KnockBack : MonoBehaviour
         }
     }
 
-    //ƒRƒ‹[ƒ`ƒ“‚ÌƒŠƒZƒbƒg—pB
+    //ï¿½Rï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½Ìƒï¿½ï¿½Zï¿½bï¿½gï¿½pï¿½B
     void ResetFlicker()
     {
         if (flicker != null)
@@ -264,18 +264,18 @@ public class KnockBack : MonoBehaviour
         {
             if (se != null)
             {
-                // UŒ‚ƒqƒbƒg‰¹
-                se.GetComponent<SEManager>().PlaySE(2);
+                // ï¿½Uï¿½ï¿½ï¿½qï¿½bï¿½gï¿½ï¿½
+                se.GetComponent<SEManager>().PlaySE(0);
             }
 
-            // ƒvƒŒƒCƒ„[‚ª~‚Ü‚Á‚Ä‚¢‚é
-            // “G‚ÆÕ“Ë
+            // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½~ï¿½Ü‚ï¿½ï¿½Ä‚ï¿½ï¿½é
+            // ï¿½Gï¿½ÆÕ“ï¿½
             isStart = true;
-            // ÚG“G‚ÆƒvƒŒƒCƒ„[‚ÌÀ•Wæ“¾
+            // ï¿½ÚGï¿½ï¿½ï¿½Gï¿½Æƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½Wï¿½æ“¾
             enemyPos = other.gameObject.transform.position;
             prePos = this.transform.position;
-            // ~‚Ü‚Á‚Ä‚¢‚é‚Írigidbody‚ª‚Â‚¢‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg‚Æ“–‚½‚è”»’è‚ğæ‚Á‚Ä‚¢‚é
-            // ã‹L‚ÌqƒIƒuƒWƒFƒNƒg‚ÉƒXƒe[ƒ^ƒXî•ñ‚ª‚ ‚é‚½‚ßq‚©‚çGetComponent
+            // ï¿½~ï¿½Ü‚ï¿½ï¿½Ä‚ï¿½ï¿½éï¿½ï¿½rigidbodyï¿½ï¿½ï¿½Â‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Æ“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
+            // ï¿½ï¿½Lï¿½Ìqï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÉƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½ñ‚ª‚ï¿½ï¿½é‚½ï¿½ßqï¿½ï¿½ï¿½ï¿½GetComponent
             enemyStatus = other.gameObject.GetComponentInChildren<EnemyStatus>();
             
         }
@@ -283,8 +283,8 @@ public class KnockBack : MonoBehaviour
 
     private void Knock(float knockX)
     {
-        // ƒmƒbƒNƒoƒbƒN‚Ì—Í‚ğRigidbody‚É‰Á‚¦‚é
-        rb.velocity = Vector2.zero; // Œ»İ‚Ì‘¬“x‚ğƒŠƒZƒbƒg
+        // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½Ì—Í‚ï¿½Rigidbodyï¿½É‰ï¿½ï¿½ï¿½ï¿½ï¿½
+        rb.velocity = Vector2.zero; // ï¿½ï¿½ï¿½İ‚Ì‘ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
         rb.AddForce(new Vector2(knockX, 0), ForceMode.Impulse);
     }
 

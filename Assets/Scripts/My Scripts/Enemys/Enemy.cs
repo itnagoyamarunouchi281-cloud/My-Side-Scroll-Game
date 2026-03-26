@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // ================================
-    // ‰¼“G
+    // ï¿½ï¿½ï¿½G
     // ================================
     [SerializeField] GameObject enemyPrefab;
     
@@ -59,14 +59,10 @@ public class Enemy : MonoBehaviour
     {
         if(isdead)
         {
-            // ƒ‚ƒfƒ‹‚Ìê‡q‚ÌƒIƒuƒWƒFƒNƒg‚ÉƒXƒNƒŠƒvƒg‚ğƒAƒ^ƒbƒ`
-            // ‚µ‚Ä‚¢‚é‚½‚ße‚²‚ÆÁ‚·
-            // «‚Ç‚¿‚ç‚©
             //Destroy(gameObject.transform.parent.gameObject);
 
             Quest_Level_1.OnEnemyDestroyCountEvent.Invoke();
 
-            
             myEnemy.AddEnemy(enemyInfo.enemyData.GetEnemyType());
             Debug.Log(enemyInfo.enemyData.GetEnemyType());
 
@@ -78,16 +74,13 @@ public class Enemy : MonoBehaviour
             if (gameObject.name == "obakefurosiki:obakefurosiki")
             {
                 flag = true;
-                Debug.Log("‚¨‚Î‚¯‚Ó‚ë‚µ‚«‚Í€‚ñ‚¾");
             }
             
             if (gameObject.name == "debiakuma")
             {
                 flag = true;
-                Debug.Log("‚Å‚Ñ‚ ‚­‚Ü‚Í€‚ñ‚¾");
             }
 
-            // Œ»İ‚Í‰¼‚Å•\¦‚µ‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg‚ÉƒAƒ^ƒbƒ`‚µ‚Ä‚¢‚é‚½‚ß‚»‚ê‚ğíœ
             //Destroy(gameObject);
 
             item.ItemDrop();

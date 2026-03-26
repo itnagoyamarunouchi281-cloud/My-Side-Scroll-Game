@@ -8,61 +8,45 @@ using System;
 public class EnemyData : ScriptableObject
 {
     // ================================
-    // ƒGƒlƒ~[‚Ìí—Ş
+    // ï¿½Gï¿½lï¿½~ï¿½[ï¿½Ìï¿½ï¿½
     // ================================
-    // «‚±‚±‚É‘‚â‚µ‚Ä‚¢‚­‚¾‚¯‚ÅOK
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‘ï¿½ï¿½â‚µï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OK
     // ================================
     public enum EnemyType
     {
-        ƒ}ˆê†,
-        ƒ}“ñ†,
-        ƒ}O†,
-        ƒ}l†,
-        ƒ}ŒÜ†,
-        ƒ}˜Z†,
-        ƒ}µ†,
-        ƒ}”ª†,
-        ƒ}‹ã†,
-        ƒ}\†,
-        ƒgˆê†,
-        ƒg“ñ†,
-        ƒgO†,
-        ƒgl†,
-        ƒgŒÜ†,
-        ƒg˜Z†,
-        ƒgµ†,
-        ƒg”ª†,
-        ƒg‹ã†,
-        ƒg\†,
-
+        TYPE1,
+        TYPE2,
+        TYPE3,
+        TYPE4,
+        TYPE5,
 
         MAX_ENEMY
     }
 
-    // “G‚Ìí—Ş
+    // ï¿½Gï¿½Ìï¿½ï¿½
     [SerializeField] private EnemyType enemyType;
-    // “G‚Ì–¼‘O
+    // ï¿½Gï¿½Ì–ï¿½ï¿½O
     [SerializeField] private string enemyName;
-    // “G‚ª—‚Æ‚·ƒAƒCƒeƒ€
+    // ï¿½Gï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Aï¿½Cï¿½eï¿½ï¿½
     [SerializeField] private ItemData.Type itemtype;
 
-    // ƒAƒCƒeƒ€‚Ìƒhƒƒbƒv—¦
+    // ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½Ìƒhï¿½ï¿½ï¿½bï¿½vï¿½ï¿½
     [SerializeField] private int Droprate;
 
-    // “G‚ÌHP
+    // ï¿½Gï¿½ï¿½HP
     [SerializeField] private int maxHp;
-    // “G‚ÌUŒ‚—Í
+    // ï¿½Gï¿½ÌUï¿½ï¿½ï¿½ï¿½
     [SerializeField] private int ATK;
-    // “G‚Ì–hŒä—Í
+    // ï¿½Gï¿½Ì–hï¿½ï¿½ï¿½
     [SerializeField] private int DEF;
 
-    // “G‚Ìí—Şæ“¾
+    // ï¿½Gï¿½Ìï¿½Şæ“¾
     public EnemyType GetEnemyType()
     {
         return enemyType;
     }
 
-    // “G‚Ì–¼‘Oæ“¾
+    // ï¿½Gï¿½Ì–ï¿½ï¿½Oï¿½æ“¾
     public string GetEnemyName()
     {
         return enemyName;
@@ -88,7 +72,7 @@ public class EnemyData : ScriptableObject
         return DEF;
     }
 
-    // ƒAƒCƒeƒ€‚Ìƒhƒƒbƒv—¦æ“¾
+    // ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½Ìƒhï¿½ï¿½ï¿½bï¿½vï¿½ï¿½ï¿½æ“¾
     public int GetDroprate()
     {
         return Droprate;

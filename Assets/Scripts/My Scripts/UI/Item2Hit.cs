@@ -16,11 +16,11 @@ public class Item2Hit : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Quest_Level_1.OnEnemyDestroyCountEvent.Invoke();
-            SEManager.instance.PlaySE(2);
+            SEManager.instance.PlaySE(0);
 
             nextStage++;
 
-            // StageManager ‚Ö‚Ì’¼ÚQÆ‚ğ‚½‚È‚¢I
+            // StageManager ï¿½Ö‚Ì’ï¿½ï¿½ÚQï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½I
             StageManager stageManager = FindObjectOfType<StageManager>();
             if (stageManager != null)
             {

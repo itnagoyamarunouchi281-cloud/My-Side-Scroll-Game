@@ -56,7 +56,7 @@ public class Attack2DContoroll : MonoBehaviour
     {
         if(isAttack)
         {
-            // “G‚ªó‚¯‚éƒ_ƒ[ƒWiƒvƒŒƒCƒ„[‚ÌUŒ‚—Í - “G‚Ì–hŒä—Íj
+            // ï¿½Gï¿½ï¿½ï¿½ó‚¯‚ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½iï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌUï¿½ï¿½ï¿½ï¿½ - ï¿½Gï¿½Ì–hï¿½ï¿½Íj
             int damage = Mathf.Max(1, StaticStatus.GetPlayerATK() - enemyStatus.GetDEF());
             Debug.Log($"damage: {damage}");
             enemyStatus.SetHp(damage);
@@ -66,8 +66,8 @@ public class Attack2DContoroll : MonoBehaviour
 
             if (se != null)
             {
-                // UŒ‚ƒqƒbƒg‰¹
-                se.GetComponent<SEManager>().PlaySE(1);
+                // ï¿½Uï¿½ï¿½ï¿½qï¿½bï¿½gï¿½ï¿½
+                se.GetComponent<SEManager>().PlaySE(0);
             }
 
             isAttack = false;
@@ -76,10 +76,10 @@ public class Attack2DContoroll : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // ƒIƒuƒWƒFƒNƒgƒ^ƒO‚ªEnemy‚Ì‚Æ‚«
+        // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½^ï¿½Oï¿½ï¿½Enemyï¿½Ì‚Æ‚ï¿½
         if (!hitflg && collision.tag == "Enemy")
         {
-            // “GƒLƒƒƒ‰‚ğ“|‚µ‚½‚©‚ğæ“¾
+            // ï¿½Gï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
             enemyInfo = collision.gameObject.GetComponent<EnemyInfo>();
             if (enemyInfo == null) return;
 
