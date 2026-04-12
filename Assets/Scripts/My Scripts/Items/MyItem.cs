@@ -6,26 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class MyItem : MonoBehaviour
 {
-    // ================================
-    // ƒvƒŒƒCƒ„[‚ÌŠƒAƒCƒeƒ€
-    // ================================
-
 
     const int Num = (int)ItemData.Type.MAX_ITEM;
 
-    // æ“¾ƒAƒCƒeƒ€Ši”[—p”z—ñ
     int[] Storage = new int[Num];
-
 
     bool fadestart = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ”z—ñ‚Ì—v‘f”•ª‰Šú‰»
         for(int i = 0;i<Storage.Length;++i)
         {
-            // ‘S‚Ä‚O
             Storage[i] = 0;
         }
     }
@@ -33,10 +25,8 @@ public class MyItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ƒAƒCƒeƒ€‚ÉG‚Á‚Ä‚¢‚È‚¢‚Æ‚«í‚Éfalse
-        // XV‚µ‚¿‚áƒ_ƒ
         StaticItem.IsUpdate = false;
-        // ‰¼
+        // ï¿½ï¿½
         //if (Storage[0] == 2)
         //{
         //    if (!fadestart)
@@ -51,16 +41,12 @@ public class MyItem : MonoBehaviour
        
     }
 
-    // ƒAƒCƒeƒ€Ši”[
-    // @param...type Ši”[‚·‚éƒAƒCƒeƒ€‚Ìí—Ş
     public void AddItem(ItemData.Type type)
     {
-        // ˆø”‚Å“n‚³‚ê‚½ƒAƒCƒeƒ€‚Ì”‚ğ‘‚â‚·
         Storage[(int)type] += 1;
         Debug.Log(Storage[(int)type]);
     }
 
-    // ƒXƒgƒŒ[ƒW‚Ì’†g‚ğæ“¾
     public int[] GetStorage()
     {
         return Storage;
