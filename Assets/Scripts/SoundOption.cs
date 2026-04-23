@@ -9,22 +9,24 @@ public class SoundOption : MonoBehaviour
     public AudioMixer audioMixer;
     public Slider bGMSlider;
     public Slider sESlider;
+    public float bgmSound;
+    public float seSound;
 
     private void Start()
     {
-        audioMixer.GetFloat("BGM_Volume", out float bgmVolume);
-        bGMSlider.value = bgmVolume;
-        audioMixer.GetFloat("SE_Volume", out float seVolume);
-        sESlider.value = seVolume;
+        bGMSlider.onValueChanged.AddListener(SetBGM);
+        sESlider.onValueChanged.AddListener(SetSE);
     }
 
-    public void SetBGM(float volume)
+    public void SetBGM(float value)
     {
+        float volume = Mathf.Log10(value) * 20;
         audioMixer.SetFloat("BGM_Volume", volume);
     }
 
-    public void SetSE(float volume)
+    public void SetSE(float value)
     {
+        float volume = Mathf.Log10(value) * 20;
         audioMixer.SetFloat("SE_Volume", volume);
     }
 }

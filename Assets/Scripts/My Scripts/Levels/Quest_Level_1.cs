@@ -45,13 +45,13 @@ public class Quest_Level_1 : MonoBehaviour
     private void ResetScore()
     {
         enemyCounter = 0;
-        coinAddText.text = $"{EnemyData.EnemyType.TYPE1}:{enemyCounter}";
+        coinAddText.text = $"{EnemyData.EnemyType.TYPE1}:{enemyCounter} / {clearNum}";
     }
 
     private void AddScore(int point)
     {
         enemyCounter += point;
-        coinAddText.text = $"{EnemyData.EnemyType.TYPE1}:{enemyCounter}";
+        coinAddText.text = $"{EnemyData.EnemyType.TYPE1}:{enemyCounter} / {clearNum}";
     }
 
     public void GameClear()
