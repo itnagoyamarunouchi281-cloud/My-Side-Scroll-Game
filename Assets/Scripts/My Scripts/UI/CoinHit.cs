@@ -8,7 +8,7 @@ public class CoinHit : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Quest_Level_1.OnEnemyDestroyCountEvent.Invoke();
+            Coin_Level1.OnCoinCountEvent.Invoke();
             SoundManager.Instance.PlaySE(SESoundData.SE.ItemGet);
             Destroy(gameObject);
         }

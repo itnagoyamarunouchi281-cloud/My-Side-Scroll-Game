@@ -29,6 +29,6 @@ public class EnemyNum : MonoBehaviour
 
     void Update()
     {
-        enemyNum[0].text = $"{EnemyData.EnemyType.TYPE1}" + myEnemy.GetStorage()[0] + $"/{enemyIndex[0]}";
+        enemyNum[0].text = $"{EnemyData.EnemyType.ENEMY}" + myEnemy.GetStorage()[0] + $"/{enemyIndex[0]}";
     }
 }

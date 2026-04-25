@@ -14,8 +14,8 @@ public class EnemyData : ScriptableObject
     // ================================
     public enum EnemyType
     {
-        TYPE1,
-        TYPE2,
+        COIN,
+        ENEMY,
         TYPE3,
         TYPE4,
         TYPE5,

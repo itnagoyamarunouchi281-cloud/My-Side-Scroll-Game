@@ -1,23 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
-public class Quest_Level_1 : IClearlable
+public class Coin_Level1 : IClearlable
 {
     public int clearNum;
-    public Text enemyDeadText;
-
-    public static UnityEvent OnEnemyDestroyCountEvent = new UnityEvent();
+    public Text coinAddText;
+    public static UnityEvent OnCoinCountEvent = new UnityEvent();
     public static UnityEvent OnGameClearEvent = new UnityEvent();
-
-    private int enemyCounter;
+    private int itemCounter;
     private bool isGameClear;
 
     void Start()
     {
         ResetScore();
 
-        OnEnemyDestroyCountEvent.AddListener(() =>
+        OnCoinCountEvent.AddListener(() =>
         {
             AddScore(1);
         });
@@ -29,11 +29,11 @@ public class Quest_Level_1 : IClearlable
         });
     }
 
-    private void Update()
+    void Update()
     {
         if (!isGameClear)
         {
-            if (clearNum <= enemyCounter)
+            if (clearNum <= itemCounter)
             {
                 OnGameClearEvent.Invoke();
                 isGameClear = true;
@@ -43,13 +43,13 @@ public class Quest_Level_1 : IClearlable
 
     private void ResetScore()
     {
-        enemyCounter = 0;
-        enemyDeadText.text = $"{EnemyData.EnemyType.ENEMY}:{enemyCounter} / {clearNum}";
+        itemCounter = 0;
+        coinAddText.text = $"{EnemyData.EnemyType.COIN}:{itemCounter} / {clearNum}";
     }
 
     private void AddScore(int point)
     {
-        enemyCounter += point;
-        enemyDeadText.text = $"{EnemyData.EnemyType.ENEMY}:{enemyCounter} / {clearNum}";
+        itemCounter += point;
+        coinAddText.text = $"{EnemyData.EnemyType.COIN}:{itemCounter} / {clearNum}";
     }
 }

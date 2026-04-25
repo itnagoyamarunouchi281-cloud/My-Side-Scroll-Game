@@ -20,7 +20,6 @@ public class Item2Hit : MonoBehaviour
 
             nextStage++;
 
-            // StageManager �ւ̒��ڎQ�Ƃ������Ȃ��I
             StageManager stageManager = FindObjectOfType<StageManager>();
             if (stageManager != null)
             {

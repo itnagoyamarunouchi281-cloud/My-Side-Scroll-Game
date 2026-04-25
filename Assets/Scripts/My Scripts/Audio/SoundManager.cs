@@ -52,9 +52,15 @@ public class BGMSoundData
 {
     public enum BGM
     {
-        Title,
-        Dungeon,
-        Hoge, // ���ꂪ���x���ɂȂ�
+        メイン画面,
+        育成画面,
+        なでなで画面,
+        ショップ画面,
+        料理配達中画面,
+        ローディング画面,
+        冒険画面,
+        図鑑画面,
+        箱替え画面,
     }
 
     public BGM bgm;
@@ -68,10 +74,20 @@ public class SESoundData
 {
     public enum SE
     {
-        Attack,
-        Damage,
-        ItemGet, // ���ꂪ���x���ɂȂ�
-        Item2Hit,
+        メイン画面,
+        育成画面,
+        なでなで画面,
+        ショップ画面,
+        料理配達中画面,
+        ローディング画面,
+        冒険画面,
+        図鑑画面,
+        箱替え画面,
+        足音移動音,
+        表情変化リアクションSE,
+        なでなでSE,
+        料理を食べるSE,
+        家具設置SE,
     }
 
     public SE se;
