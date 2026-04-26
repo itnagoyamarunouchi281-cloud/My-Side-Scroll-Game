@@ -6,19 +6,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒXƒe[ƒWƒ}ƒl[ƒWƒƒƒNƒ‰ƒX
+/// 
 /// </summary>
 public class StageManager : MonoBehaviour
 {
-    public Image bossHPGage; // ƒ{ƒX—pHPƒQ[ƒWImage
+    public Image bossHPGage;
 
-    [Header("‰ŠúƒGƒŠƒA‚ÌAreaManager")]
-    public AreaManager initArea; // ƒXƒe[ƒW“à‚ÌÅ‰‚ÌƒGƒŠƒA(‰ŠúƒGƒŠƒA)
+    public AreaManager initArea;
 
-    [Header("ƒ{ƒXí—pBGM‚ÌAudioClip")]
     public AudioClip bossBGMClip;
 
-    // ƒXƒe[ƒW“à‚Ì‘SƒGƒŠƒA‚Ì”z—ñ(Start‚ÅŽæ“¾)
     private AreaManager[] inStageAreas;
 
     private int currentStage = 0;
@@ -26,20 +23,17 @@ public class StageManager : MonoBehaviour
     // Start
     void Start()
     {
-        // ƒXƒe[ƒW“à‚Ì‘SƒGƒŠƒA‚ðŽæ“¾E‰Šú‰»
         inStageAreas = GetComponentsInChildren<AreaManager>();
         foreach (var targetAreaManager in inStageAreas)
             targetAreaManager.Init(this);
 
-        // ‰ŠúƒGƒŠƒA‚ðƒAƒNƒeƒBƒu‰»(‚»‚Ì‘¼‚ÌƒGƒŠƒA‚Í‘S‚Ä–³Œø‰»)
         initArea.ActiveArea();
 
-        // UI‰Šú‰»
         bossHPGage.transform.parent.gameObject.SetActive(false);
     }
 
     /// <summary>
-    /// ƒXƒe[ƒW“à‚Ì‘SƒGƒŠƒA‚ð–³Œø‰»‚·‚é
+    /// 
     /// </summary>
     public void DeactivateAllAreas()
     {
@@ -48,25 +42,28 @@ public class StageManager : MonoBehaviour
     }
 
     /// <summary>
-	/// ƒ{ƒXí—pBGM‚ðÄ¶‚·‚é
+	/// 
 	/// </summary>
 	public void PlayBossBGM()
     {
-        // BGM‚ð•ÏX‚·‚é
         GetComponent<AudioSource>().clip = bossBGMClip;
         GetComponent<AudioSource>().Play();
     }
 
-    /// <summary>
-    /// 
-    //// ƒXƒe[ƒW‚ð•ÏX‚·‚é
     public void ChangeStage(int nextStage)
     {
         currentStage = nextStage;
         Debug.Log($"Stage changed to {currentStage}");
 
-        foreach (var targetAreaManager in inStageAreas)
-            targetAreaManager.ActiveArea();
+        // æŒ‡å®šã—ãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ã‚¨ãƒªã‚¢ã®ã¿ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
+        if (currentStage >= 0 && currentStage < inStageAreas.Length)
+        {
+            inStageAreas[currentStage].ActiveArea();
+        }
+        else
+        {
+            Debug.LogWarning($"Invalid stage index: {currentStage}");
+        }
     }
 
     public void StageClear()

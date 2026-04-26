@@ -88,6 +88,7 @@ public class SESoundData
         なでなでSE,
         料理を食べるSE,
         家具設置SE,
+        HITSE,
     }
 
     public SE se;

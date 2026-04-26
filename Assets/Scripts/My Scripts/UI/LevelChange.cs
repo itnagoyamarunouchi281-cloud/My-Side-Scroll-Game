@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item2Hit : MonoBehaviour
+public class LevelChange : MonoBehaviour
 {
     [SerializeField] private int nextStage = 1;
 

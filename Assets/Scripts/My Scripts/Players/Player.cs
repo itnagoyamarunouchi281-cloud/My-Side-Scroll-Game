@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        anime.SetBool("isWalk", false);
+        anime.SetBool("isWalk", true);
 
         Vector3 effectpos = this.gameObject.transform.position;
 
@@ -125,31 +125,28 @@ public class Player : MonoBehaviour
                 moveDirection.y = maxJumpHeight * 0.8f;
             }
 
-            if (!knock.GetIsInoperable())
+            if(x == 0)
             {
-                if(x == 0)
-                {
-                    LeaveTime += Time.deltaTime;
-                }
-                else if (x > 0)
-                {
-                    LeaveTime = 0.0f;
-                    anime.SetBool("isWalk", true);
-                    moveDirection.x = Input.GetAxis("Horizontal") * speed * 0.8f;
-                    gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
-                    charaobj.transform.localScale = new Vector3(1, 1, 1);
-                    WalkTimer++;
-                }
+                LeaveTime += Time.deltaTime;
+            }
+            else if (x > 0)
+            {
+                LeaveTime = 0.0f;
+                anime.SetBool("isWalk", true);
+                moveDirection.x = Input.GetAxis("Horizontal") * speed * 0.8f;
+                gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+                charaobj.transform.localScale = new Vector3(1, 1, 1);
+                WalkTimer++;
+            }
 
-                else if (x < 0)
-                {
-                    LeaveTime = 0.0f;
-                    anime.SetBool("isWalk", true);
-                    moveDirection.x = Input.GetAxis("Horizontal") * speed * 0.8f;
-                    gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    charaobj.transform.localScale = new Vector3(-1, 1, 1);
-                    WalkTimer++;
-                }
+            else if (x < 0)
+            {
+                LeaveTime = 0.0f;
+                anime.SetBool("isWalk", true);
+                moveDirection.x = Input.GetAxis("Horizontal") * speed * 0.8f;
+                gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
+                charaobj.transform.localScale = new Vector3(-1, 1, 1);
+                WalkTimer++;
             }
         }
         else
