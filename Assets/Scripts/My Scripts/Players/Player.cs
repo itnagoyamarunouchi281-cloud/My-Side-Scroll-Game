@@ -1,249 +1,208 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-    public float speed;
-    public float maxJumpHeight = 3.2f;
-    public float maxJumpDistance = 8.0f;
-    public float gravity;
+    [Header("移動")]
+    public float speed = 5f;
+    public float jumpPower = 8f;
+    public float gravity = 20f;
+
+    [Header("参照")]
     public GameObject charaobj;
     public GameObject camobj;
 
+    [SerializeField] private Animator anime;
+    [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float rayLength = 1f;
-
-    [SerializeField] private float rayOffset;
-
-    [SerializeField] private LayerMask layerMask = default;
-
-    private float x;
-
-    private Vector3 moveDirection = Vector3.zero;
-
-    private ItemInfo iteminfo;
-    private MyItem myitem;
+    [SerializeField] private float rayOffset = 0.5f;
 
     private CharacterController controller;
     private KnockBack knock;
-    
-    [SerializeField] private Animator anime;
 
+    private Vector3 velocity;
+    private float inputX;
+    private bool isGrounded;
     private bool isJump;
+    private bool isAttacking;
+    private bool isWalking;
 
-    private bool isGround;
     private GameObject scissors1;
-    private float LeaveTime = 0.0f;
-    private int WalkTimer = 0;
 
-    // Use this for initialization
+    // -------------------------
+    // 初期化
+    // -------------------------
     void Start()
     {
-        myitem = GetComponent<MyItem>();
-
         controller = GetComponent<CharacterController>();
         knock = GetComponent<KnockBack>();
 
         scissors1 = GameObject.Find("scissors1");
-        isJump = false;
     }
 
+    // -------------------------
+    // 更新
+    // -------------------------
     void Update()
     {
-        anime.SetBool("isWalk", true);
+        // ===== 入力 =====
+        inputX = Input.GetAxis("Horizontal");
 
-        Vector3 effectpos = this.gameObject.transform.position;
-
-        effectpos.x = this.gameObject.transform.position.x - 0.6f;
-        effectpos.y = this.gameObject.transform.position.y - 1.1f;
-
-        if (anime.GetCurrentAnimatorStateInfo(0).IsName("Anim_Idle"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            LeaveTime += Time.deltaTime;
-            if (LeaveTime > 5.0f)
-            {
-                anime.SetBool("isLeave", true);
-            }
+            Jump();
         }
 
-        if (anime.GetCurrentAnimatorStateInfo(0).IsName("Doya"))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            Vector3 newDir =
-                Vector3.RotateTowards(
-                    transform.forward, new Vector3(0, 0, -1),
-                    4.5f * Time.deltaTime, 0.0f);
-            this.transform.rotation = Quaternion.LookRotation(newDir);
-            LeaveTime = 0.0f;
-            anime.SetBool("isLeave", false);
+            Attack();
         }
 
-        AttackMotion();
+        // ===== 状態 =====
+        CheckGround();
 
-        if (scissors1.GetComponent<AttackContoroll>().GethitFlg())
+        // ===== 移動 =====
+        Move();
+
+        // ===== アニメ更新（ここだけ）=====
+        UpdateAnimator();
+    }
+
+    // -------------------------
+    // 移動処理
+    // -------------------------
+    void Move()
+    {
+        // 横移動
+        Vector3 move = new Vector3(inputX, 0, 0);
+
+        if (!isGrounded)
         {
-            moveDirection.y = 1;
+            move *= 0.5f; // 空中制御弱め
         }
 
-        x = Input.GetAxis("Horizontal");
+        controller.Move(move * speed * Time.deltaTime);
 
-        if (!controller.isGrounded)
+        // 向き
+        if (inputX > 0)
         {
-            if (CheckGrounded())
-            {
-                isGround = true;
-            }
-            else
-            {
-                isGround = false;
-            }
+            charaobj.transform.localScale = new Vector3(1, 1, 1);
+            transform.rotation = Quaternion.Euler(0, -90, 0);
+            isWalking = true;
         }
-        
-        if (controller.isGrounded && isGround)
+        else if (inputX < 0)
         {
-            anime.SetBool("isJump", false);
-            isJump = false;
-
-            moveDirection = new Vector3(0, 0, x);
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= speed;
-            //moveDirection.x *= Vec;
-
-            if (Input.GetKeyDown(KeyCode.Space) &&
-                !anime.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
-            {
-                anime.SetBool("isJump", true);
-                anime.SetFloat("animSpeed", 2.0f);
-                isJump = true;
-                moveDirection.y = maxJumpHeight * 0.8f;
-            }
-
-            if (anime.GetCurrentAnimatorStateInfo(0).IsName("Jump") &&
-                anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.27 &&
-               isJump)
-            {
-                isJump = false;
-                anime.SetFloat("animSpeed", 0.5f);
-                moveDirection.y = maxJumpHeight * 0.8f;
-            }
-
-            if(x == 0)
-            {
-                LeaveTime += Time.deltaTime;
-            }
-            else if (x > 0)
-            {
-                LeaveTime = 0.0f;
-                anime.SetBool("isWalk", true);
-                moveDirection.x = Input.GetAxis("Horizontal") * speed * 0.8f;
-                gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
-                charaobj.transform.localScale = new Vector3(1, 1, 1);
-                WalkTimer++;
-            }
-
-            else if (x < 0)
-            {
-                LeaveTime = 0.0f;
-                anime.SetBool("isWalk", true);
-                moveDirection.x = Input.GetAxis("Horizontal") * speed * 0.8f;
-                gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
-                charaobj.transform.localScale = new Vector3(-1, 1, 1);
-                WalkTimer++;
-            }
+            charaobj.transform.localScale = new Vector3(-1, 1, 1);
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+            isWalking = true;
         }
         else
         {
-            moveDirection.x = Input.GetAxis("Horizontal") * (speed / 2);
+            isWalking = false;
         }
 
-        if (WalkTimer == 15)
+        // 重力
+        if (isGrounded && velocity.y < 0)
         {
-            WalkTimer = 0;
+            velocity.y = -2f;
+            isJump = false;
         }
 
-        Vector3 pos = transform.position;
-        //pos.x = 0.0f;
-        transform.position = pos;
+        velocity.y -= gravity * Time.deltaTime;
 
-        moveDirection.y -= gravity * Time.deltaTime;
-
+        // ノックバック中は横移動禁止
         if (!knock.GetIsInoperable())
         {
-            controller.Move(moveDirection * Time.deltaTime);
+            controller.Move(velocity * Time.deltaTime);
         }
         else
         {
-            controller.Move(new Vector3(0, moveDirection.y * Time.deltaTime, 0));
+            controller.Move(new Vector3(0, velocity.y * Time.deltaTime, 0));
         }
 
+        // Z固定（横スクロール用）
         if (transform.position.z != 0)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         }
     }
 
-    private IEnumerator Attack()
+    // -------------------------
+    // ジャンプ
+    // -------------------------
+    void Jump()
+    {
+        if (!isGrounded) return;
+
+        velocity.y = jumpPower;
+        isJump = true;
+    }
+
+    // -------------------------
+    // 攻撃
+    // -------------------------
+    void Attack()
+    {
+        isAttacking = true;
+        StartCoroutine(AttackCoroutine());
+    }
+
+    private IEnumerator AttackCoroutine()
     {
         scissors1.GetComponent<Collider>().enabled = true;
 
         yield return new WaitForSeconds(0.3f);
 
         scissors1.GetComponent<Collider>().enabled = false;
-
-        scissors1.GetComponent<AttackContoroll>().SethitFlg(false);
     }
 
-    private void AttackMotion()
+    // -------------------------
+    // 接地判定
+    // -------------------------
+    void CheckGround()
     {
-        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetKeyDown(KeyCode.Space))
-        {
-            LeaveTime = 0.0f;
-            anime.SetTrigger("Attack");
+        Ray ray = new Ray(
+            transform.position + Vector3.up * rayOffset,
+            Vector3.down
+        );
 
-            StartCoroutine(Attack());
+        isGrounded = Physics.Raycast(ray, rayLength, groundLayer);
+
+        if (isGrounded)
+        {
+            isJump = false;
         }
+    }
 
-        if (anime.GetCurrentAnimatorStateInfo(0).IsName("OverSlash") ||
-            anime.GetCurrentAnimatorStateInfo(0).IsName("UnderSlash") ||
-            anime.GetCurrentAnimatorStateInfo(0).IsName("Stab"))
+    // -------------------------
+    // Animator制御（最重要）
+    // -------------------------
+    void UpdateAnimator()
+    {
+        float speedParam = Mathf.Abs(inputX);
+
+        if (isAttacking)
         {
-            scissors1.GetComponent<Collider>().enabled = true;
+            anime.SetTrigger("Attack");
         }
         else
         {
-            scissors1.GetComponent<Collider>().enabled = false;
-            scissors1.GetComponent<AttackContoroll>().SethitFlg(false);
+            anime.ResetTrigger("Attack");
         }
+        
+        anime.SetBool("isWalk", isWalking);
+        anime.SetFloat("Speed", speedParam);
+        anime.SetBool("isGround", isGrounded);
+        anime.SetBool("isJump", isJump);
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.tag == "Item")
-        {
-            iteminfo = other.gameObject.GetComponent<ItemInfo>();
-            myitem.AddItem(iteminfo.itemData.GetItemType());
-
-            StaticItem.IsUpdate = true;
-
-            //Debug.Log(iteminfo.itemData.GetItemType());
-
-            Destroy(other.gameObject);
-        }
-    }
-
-    public Vector3 GetMoveDirection()
-    {
-        return moveDirection;
-    }
-
-    private bool CheckGrounded()
-    {
-        var ray = new Ray(origin: transform.position + Vector3.up * rayOffset, direction: Vector3.down);
-
-        return Physics.Raycast(ray, rayLength, layerMask);
-    }
-
+    // -------------------------
+    // デバッグ
+    // -------------------------
     private void OnDrawGizmos()
     {
-        Gizmos.color = CheckGrounded() ? Color.green : Color.red;
+        Gizmos.color = isGrounded ? Color.green : Color.red;
         Gizmos.DrawRay(transform.position + Vector3.up * rayOffset, Vector3.down * rayLength);
     }
 }

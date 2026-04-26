@@ -16,7 +16,7 @@ public class LevelChange : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Quest_Level_1.OnEnemyDestroyCountEvent.Invoke();
-            SEManager.instance.PlaySE(0);
+            SoundManager.Instance.PlaySE(SESoundData.SE.なでなでSE);
 
             nextStage++;
 
