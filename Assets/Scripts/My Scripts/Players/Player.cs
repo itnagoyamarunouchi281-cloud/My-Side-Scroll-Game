@@ -5,7 +5,6 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     [Header("移動")]
-    public float speed = 5f;
     public float jumpPower = 8f;
     public float gravity = 20f;
 
@@ -54,11 +53,6 @@ public class Player : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Attack();
-        }
-
         // ===== 状態 =====
         CheckGround();
 
@@ -75,14 +69,7 @@ public class Player : MonoBehaviour
     void Move()
     {
         // 横移動
-        Vector3 move = new Vector3(inputX, 0, 0);
-
-        if (!isGrounded)
-        {
-            move *= 0.5f; // 空中制御弱め
-        }
-
-        controller.Move(move * speed * Time.deltaTime);
+        velocity.x = inputX * 5f;
 
         // 向き
         if (inputX > 0)
@@ -140,24 +127,6 @@ public class Player : MonoBehaviour
     }
 
     // -------------------------
-    // 攻撃
-    // -------------------------
-    void Attack()
-    {
-        isAttacking = true;
-        StartCoroutine(AttackCoroutine());
-    }
-
-    private IEnumerator AttackCoroutine()
-    {
-        scissors1.GetComponent<Collider>().enabled = true;
-
-        yield return new WaitForSeconds(0.3f);
-
-        scissors1.GetComponent<Collider>().enabled = false;
-    }
-
-    // -------------------------
     // 接地判定
     // -------------------------
     void CheckGround()
@@ -175,26 +144,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    // -------------------------
-    // Animator制御（最重要）
-    // -------------------------
     void UpdateAnimator()
     {
-        float speedParam = Mathf.Abs(inputX);
-
-        if (isAttacking)
-        {
-            anime.SetTrigger("Attack");
-        }
-        else
-        {
-            anime.ResetTrigger("Attack");
-        }
-        
-        anime.SetBool("isWalk", isWalking);
-        anime.SetFloat("Speed", speedParam);
-        anime.SetBool("isGround", isGrounded);
-        anime.SetBool("isJump", isJump);
+        anime.SetBool("isWalking", isWalking);
+        anime.SetBool("isJumping", isJump);
     }
 
     // -------------------------

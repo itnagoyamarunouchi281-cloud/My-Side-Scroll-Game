@@ -1,16 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemInfo : MonoBehaviour
 {
     // ==========================================
-    // ƒAƒCƒeƒ€ƒf[ƒ^İ’è—p
+    // ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½İ’ï¿½p
     // ==========================================
-    // ƒAƒCƒeƒ€ƒIƒuƒWƒFƒNƒg‚ÉƒAƒ^ƒbƒ`
-    // Inspector‚ÅResourcesƒtƒHƒ‹ƒ_“à‚É‚ ‚é
-    // ƒAƒCƒeƒ€ƒf[ƒ^(.asset)‚ğİ’è‚·‚é‚¾‚¯
+    // ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÉƒAï¿½^ï¿½bï¿½`
+    // Inspectorï¿½ï¿½Resourcesï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
+    // ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½fï¿½[ï¿½^(.asset)ï¿½ï¿½İ’è‚·ï¿½é‚¾ï¿½ï¿½
     // ==========================================
     public ItemData itemData;
 
+    public Text stasText_1;
+    public Text stasText_2;
+
+    public void SetItemData(string category, string itemName)
+    {
+        stasText_1.text = category;
+        stasText_2.text = itemName;
+    }
 }

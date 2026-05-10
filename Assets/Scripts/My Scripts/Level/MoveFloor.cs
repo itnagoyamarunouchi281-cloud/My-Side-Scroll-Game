@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class MoveFloor : MonoBehaviour
 {
-    //オブジェクトを現在座標で上下移動で往復させるためのコードが以下です。
     void Start()
     {
-        StartCoroutine(MoveTask());
+        //StartCoroutine(MoveTask());
     }
 
-    // 上下移動のコルーチン
-    // 使いどころ
-    // キャラクターが床に乗った時にだけ上に移動したい場合など
     IEnumerator MoveTask()
     {
         MoveUp(3.5f);
@@ -20,13 +16,23 @@ public class MoveFloor : MonoBehaviour
         MoveDown(-3.5f);
     }
 
-    void MoveUp(float posY)
+    public void MoveUp(float posY)
     {
         transform.position = new Vector3(transform.position.x, posY, transform.position.z);
     }
 
-    void MoveDown(float posY)
+    public void MoveDown(float posY)
     {
         transform.position = new Vector3(transform.position.x, posY, transform.position.z);
+    }
+
+    public void MoveLeft(float posX)
+    {
+        transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+    }
+
+    public void MoveRight(float posX)
+    {
+        transform.position = new Vector3(posX, transform.position.y, transform.position.z);
     }
 }

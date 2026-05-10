@@ -9,8 +9,6 @@ public class SoundOption : MonoBehaviour
     public AudioMixer audioMixer;
     public Slider bGMSlider;
     public Slider sESlider;
-    public float bgmSound;
-    public float seSound;
 
     private void Start()
     {

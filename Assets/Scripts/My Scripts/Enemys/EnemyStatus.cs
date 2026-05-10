@@ -6,36 +6,36 @@ using UnityEngine.UI;
 public class EnemyStatus : MonoBehaviour
 {
     // ================================
-    // “G‚Ìî•ñ‚ğæ“¾‚µ‚ÄƒXƒe[ƒ^ƒXİ’è
+    // ï¿½Gï¿½Ìï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ÄƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½İ’ï¿½
     // ================================
 
-    // ƒGƒlƒ~[‚Ìî•ñæ“¾—p
+    // ï¿½Gï¿½lï¿½~ï¿½[ï¿½Ìï¿½ï¿½æ“¾ï¿½p
     EnemyInfo enemyinfo;
 
-    // “G‚ÌMaxHP
+    // ï¿½Gï¿½ï¿½MaxHP
     [SerializeField] private int maxHP;
 
-    // “G‚ÌŒ»İ‚ÌHP
+    // ï¿½Gï¿½ÌŒï¿½ï¿½İ‚ï¿½HP
     [SerializeField] private int curHP;
 
-    // “G‚ÌUŒ‚—Í
+    // ï¿½Gï¿½ÌUï¿½ï¿½ï¿½ï¿½
     [SerializeField] int ATK;
 
     [SerializeField] int DEF;
 
-    // “G‚Ì–¼‘O
+    // ï¿½Gï¿½Ì–ï¿½ï¿½O
     [SerializeField] string enemyName;/*2024/11/20*/
 
-    // HP•\¦—pUI
+    // HPï¿½\ï¿½ï¿½ï¿½pUI
     [SerializeField] private GameObject HPUI;
 
-    // HP•\¦—pƒXƒ‰ƒCƒ_[
+    // HPï¿½\ï¿½ï¿½ï¿½pï¿½Xï¿½ï¿½ï¿½Cï¿½_ï¿½[
     private Slider hpSlider;
 
     
     public void Init()
     {
-        // “G‚Ìƒf[ƒ^‚©‚çƒXƒe[ƒ^ƒX‚ğ“Ç‚İæ‚èİ’è
+        // ï¿½Gï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½Ç‚İï¿½ï¿½İ’ï¿½
         enemyinfo = GetComponent<EnemyInfo>();
         curHP = maxHP = enemyinfo.enemyData.GetHp();
         ATK = enemyinfo.enemyData.GetATK();
@@ -49,11 +49,16 @@ public class EnemyStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ‰¼FZƒL[‚ÅHPŒ»Û
+        // ï¿½ï¿½ï¿½FZï¿½Lï¿½[ï¿½ï¿½HPï¿½ï¿½ï¿½ï¿½
         if(Input.GetKeyUp(KeyCode.Q))
         {
             SetHp(20);            
         }
+    }
+
+    public int GetDead()
+    {
+        return curHP <= 0 ? 1 : 0;
     }
 
     public void SetHp(int hp)
@@ -61,7 +66,7 @@ public class EnemyStatus : MonoBehaviour
         if(0 < this.curHP)
             this.curHP -= hp;
 
-        // HP•\¦—pUI‚ÌƒAƒbƒvƒf[ƒg
+        // HPï¿½\ï¿½ï¿½ï¿½pUIï¿½ÌƒAï¿½bï¿½vï¿½fï¿½[ï¿½g
         UpdateHPValue();
     }
 
@@ -91,7 +96,7 @@ public class EnemyStatus : MonoBehaviour
         return enemyName;
     }
 
-    // €‚ñ‚¾‚çHPUI‚ğ”ñ•\¦‚É‚·‚é
+    // ï¿½ï¿½ï¿½ñ‚¾‚ï¿½HPUIï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
     public void HideStatusUI()
     {
         HPUI.SetActive(false);

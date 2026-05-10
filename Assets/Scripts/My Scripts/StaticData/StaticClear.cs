@@ -1,24 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StaticClear : MonoBehaviour
 {
     // ================================
-    // ƒXƒe[ƒWƒNƒŠƒAî•ñŠÇ—
+    // ï¿½Xï¿½eï¿½[ï¿½Wï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ç—ï¿½
     // ================================
-    // --- ‘z’è‚·‚ég‚¢•û ---
-    // ƒXƒe[ƒW‘I‘ğStageNo‚É—V‚ÔƒXƒe[ƒW”Ô†‚ğİ’è
-    // ƒXƒe[ƒWƒNƒŠƒAŒã
-    // AddClearNum‚ÅClearNum‚ğ‰ÁZ
-    // ‘I‘ğƒV[ƒ“‚ÉGetClearNum‚Å”½‰f
-    // ƒNƒŠƒA‚µ‚½ƒXƒe[ƒW” + 1ƒXƒe[ƒW‰ğ•ú
-    // ¦ƒQ[ƒ€ŠJn‚Í‚PƒXƒe[ƒW‰ğ•úó‘Ô
+    // --- ï¿½zï¿½è‚·ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ ---
+    // ï¿½Xï¿½eï¿½[ï¿½Wï¿½Iï¿½ï¿½ï¿½ï¿½StageNoï¿½É—Vï¿½ÔƒXï¿½eï¿½[ï¿½Wï¿½Ôï¿½ï¿½ï¿½İ’ï¿½
+    // ï¿½Xï¿½eï¿½[ï¿½Wï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½
+    // AddClearNumï¿½ï¿½ClearNumï¿½ï¿½ï¿½ï¿½ï¿½Z
+    // ï¿½Iï¿½ï¿½ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½GetClearNumï¿½Å”ï¿½ï¿½f
+    // ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½Wï¿½ï¿½ + 1ï¿½Xï¿½eï¿½[ï¿½Wï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½Í‚Pï¿½Xï¿½eï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    // —V‚ñ‚Å‚¢‚éƒXƒe[ƒW”Ô†
+    public List<Button> LevelButtonList;
+    public int levelNum = 0;
+
+    // ï¿½Vï¿½ï¿½Å‚ï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½Wï¿½Ôï¿½
     public static int StageNo;
 
-    // ƒNƒŠƒAƒXƒe[ƒW”
+    // ï¿½Nï¿½ï¿½ï¿½Aï¿½Xï¿½eï¿½[ï¿½Wï¿½ï¿½
     public static int ClearNum = 0;
 
 
@@ -28,11 +32,11 @@ public class StaticClear : MonoBehaviour
     }
     
     
-    // ƒNƒŠƒA‰ÁZ
+    // ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Z
     public static void AddClearNum()
     {
-        // —V‚ñ‚Å‚¢‚éƒXƒe[ƒW”Ô†‚ªƒNƒŠƒA‚µ‚Ä‚¢‚éƒXƒe[ƒW”‚æ‚è‘å‚«‚¢‚Æ‚«‚¾‚¯‰ÁZ
-        // –¢ƒNƒŠƒA‚ÌƒXƒe[ƒW‚ğƒNƒŠƒA‚µ‚½‚Ì‚İƒXƒe[ƒW‰ğ•ú
+        // ï¿½Vï¿½ï¿½Å‚ï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½Wï¿½Ôï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Z
+        // ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Aï¿½ÌƒXï¿½eï¿½[ï¿½Wï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚İƒXï¿½eï¿½[ï¿½Wï¿½ï¿½ï¿½
         if (StageNo > ClearNum)
         {
             ClearNum++;
@@ -43,12 +47,7 @@ public class StaticClear : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        LevelButtonList[ClearNum].interactable = true;
+        ClearNum++;
     }
 }

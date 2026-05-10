@@ -7,71 +7,50 @@ using System;
 [CreateAssetMenu(fileName = "ItemData",menuName = "CreateItemData")]
 public class ItemData : ScriptableObject
 {
-    // ================================
-    // ƒAƒCƒeƒ€‚Ìí—Ş
-    // ================================
-    // «‚±‚±‚É‘‚â‚µ‚Ä‚¢‚­‚¾‚¯‚ÅOK
-    // ================================
     public enum Type
     {
-        ITEM_0,
-        ITEM_1,
-        ITEM_2,
-        ITEM_3,
-        ITEM_4,
-        ITEM_5,
-        ITEM_6,
-        ITEM_7,
-        ITEM_8,
-        ITEM_9,
-        ITEM_10,
-        ITEM_11,
-        ITEM_12,
-        ITEM_13,
-        ITEM_14,
-        ITEM_15,
-        ITEM_16,
-        ITEM_17,
-        ITEM_18,
-        ITEM_19,
-        ITEM_20,
+        ã‚¢ãƒ³ã‚°ãƒ©,
+        æ–‡åŒ–æ°‘æ—,
+        ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆ,
+        ãƒ•ã‚¡ãƒ³ã‚¿ã‚¸ãƒ¼,
+        ã‚´ã‚·ãƒƒã‚¯,
+        ãƒ›ãƒ©ãƒ¼,
+        æµ·è³Š,
+        ã‚«ã‚¸ãƒ¥ã‚¢ãƒ«,
+        è™«å‹•ç‰©,
+        è¬ç³»,
+        ãƒãƒ¼ãƒãƒ«,
+        SF,
+        ç¥è©±,
+        ã‚¹ãƒãƒ¼ãƒ ãƒ‘ãƒ³ã‚¯,
+        å’Œé¢¨,
 
         MAX_ITEM
     }
 
-    // ƒAƒCƒeƒ€‚Ìí—Ş
     [SerializeField] private Type itemType;
-    // ƒAƒCƒeƒ€‚ÌƒAƒCƒRƒ“
     [SerializeField] private Sprite icon;
-    // ƒAƒCƒeƒ€‚Ì–¼‘O
     [SerializeField] private string itemName;
-    // ƒAƒCƒeƒ€‚ÌŒÂ”
     [SerializeField] private int Num;
    
 
-    // ƒAƒCƒeƒ€‚Ìí—Şæ“¾
     public Type GetItemType()
     {
         return itemType;
     }
 
-    // ƒAƒCƒeƒ€‚ÌƒAƒCƒRƒ“æ“¾
     public Sprite GetIcon()
     {
         return icon;
     }
 
-    // ƒAƒCƒeƒ€‚Ì–¼‘Oæ“¾
     public string GetItemName()
     {
         return itemName;
     }
 
-    // ƒAƒCƒeƒ€‚Ì”æ“¾
     public int GetItemNum()
     {
         return Num;
     }
-
-    
 }
