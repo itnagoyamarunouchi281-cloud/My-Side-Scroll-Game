@@ -5,17 +5,17 @@ using UnityEngine;
 public class StaticDecoration : MonoBehaviour
 {
     // ================================
-    // ‘•ü•iî•ñ•Û—p
+    // ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Ûï¿½ï¿½p
     // ================================
 
-    // ‰Šú‰»‚µ‚½‚©‚Ç‚¤‚©
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
     public static bool isInit = false;
 
-    // ‘•ü•i‚Ìî•ñŠi”[”z—ñ
-    // “Y‚¦š”Ô–Ú‚Ì‘•ü•i‚ªì‚ç‚ê‚½‚©‚Ç‚¤‚©Ši”[
+    // ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½Ìï¿½ï¿½iï¿½[ï¿½zï¿½ï¿½
+    // ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½Ô–Ú‚Ì‘ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½iï¿½[
     public static bool[] IsCreate = new bool[(int)DecorationData.DecorationType.MAX_DECO];
     
-    // ƒXƒe[ƒ^ƒX‰ÁZÏ‚İ‚©‚Ç‚¤‚©
+    // ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½ï¿½Zï¿½Ï‚İ‚ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
     public static bool[] IsAdd = new bool[(int)DecorationData.DecorationType.MAX_DECO];
 
     public static void InitFlag()
@@ -27,14 +27,11 @@ public class StaticDecoration : MonoBehaviour
         }
     }
 
-    // static‚È‰ÁZƒtƒ‰ƒO”z—ñ‚ğæ“¾
+    // staticï¿½È‰ï¿½ï¿½Zï¿½tï¿½ï¿½ï¿½Oï¿½zï¿½ï¿½ï¿½ï¿½æ“¾
     public static bool[] GetIsAdd()
     {
         return IsAdd;
-    }
-
-
-    
+    }    
     
     public static void SetIsCreate(bool[] iscreate)
     {
@@ -52,7 +49,10 @@ public class StaticDecoration : MonoBehaviour
 
     public static void AddDecoration()
     {
+        DecorationData.DecorationType point = FindObjectOfType<DecorationData>().GetDecoType();
 
+        // ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿½åŠ ã™ã‚‹
+        IsCreate[(int)point] = true;
+        IsAdd[(int)point] = true;
     }
-
 }

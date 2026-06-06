@@ -49,5 +49,10 @@ public class StaticClear : MonoBehaviour
     {
         LevelButtonList[ClearNum].interactable = true;
         ClearNum++;
+
+        if(ClearNum > levelNum)
+        {
+            FadeManager.Instance.LoadScene("ClearScene", 1.0f);
+        }
     }
 }

@@ -6,14 +6,14 @@ public class Enemy02Move : MonoBehaviour
 {
     public enum Enemy02Mode
     {
-        WALK,       // •à‚­
-        BACK,       // –ß‚éi‰ŠúˆÊ’u‚Öj
-        CHASE,      // ’ÇÕ
-        ATTACK,     // UŒ‚
-        DIE,        // “|‚ê‚é
+        WALK,       // ï¿½ï¿½ï¿½ï¿½
+        BACK,       // ï¿½ß‚ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Öj
+        CHASE,      // ï¿½Çï¿½
+        ATTACK,     // ï¿½Uï¿½ï¿½
+        DIE,        // ï¿½|ï¿½ï¿½ï¿½
         KNOCK,
 
-        PLAYER_DIE, // ƒvƒŒƒCƒ„[‚ª“|‚ê‚½‚Æ‚«
+        PLAYER_DIE, // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½|ï¿½ê‚½ï¿½Æ‚ï¿½
 
         MAX
     }
@@ -45,8 +45,8 @@ public class Enemy02Move : MonoBehaviour
     private GameObject scissors;
     private Vector3 pos;
     private int Step;
-    private float dir = 1; // •ûŒü
-    private Vector3 newDir; // BackMode—p‚Ì•ûŒü
+    private float dir = 1; // ï¿½ï¿½ï¿½ï¿½
+    private Vector3 newDir; // BackModeï¿½pï¿½Ì•ï¿½ï¿½ï¿½
 
     // Start is called before the first frame update
     void Start()
@@ -56,13 +56,13 @@ public class Enemy02Move : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
-        // ƒAƒjƒ[ƒVƒ‡ƒ“ƒRƒ“ƒgƒ[ƒ‰[
+        // ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½[
         animator = GetComponent<Animator>();
 
-        // ‰Šúƒ‚[ƒhæ“¾
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½æ“¾
         curMode = Enemy02Mode.WALK;
 
-        // ‰ŠúˆÊ’uæ“¾
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½æ“¾
         initPos = this.transform.position;
 
         playerObj = GameObject.Find("Actor");
@@ -71,10 +71,10 @@ public class Enemy02Move : MonoBehaviour
         dir = 1;
         //transform.rotation = Quaternion.LookRotation(new Vector3(dir, 0, 0));
 
-        // ‚Í‚³‚İ
+        // ï¿½Í‚ï¿½ï¿½ï¿½
         scissors = GameObject.Find("scissors1");
 
-        // “GƒmƒbƒNƒoƒbƒNˆ——p
+        // ï¿½Gï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½p
         Step = 0;
 
         thistrans = transform;
@@ -83,16 +83,16 @@ public class Enemy02Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // À•Wæ“¾
+        // ï¿½ï¿½ï¿½Wï¿½æ“¾
         pos = thistrans.position;
 
-        // ‘Ì—Í‚O‚É‚È‚Á‚½‚çƒ‚[ƒh•ÏX
+        // ï¿½Ì—Í‚Oï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½çƒ‚ï¿½[ï¿½hï¿½ÏX
         if (status.GetHp() <= 0)
         {
             curMode = Enemy02Mode.DIE;
         }
 
-        // ƒvƒŒƒCƒ„[‚ª“|‚ê‚½‚ç•à‚«ƒ‚[ƒh‚Ö
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½|ï¿½ê‚½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½
         if(playerObj.GetComponent<PlayerStatus>().GetCurHp() <= 0 &&
             curMode != Enemy02Mode.WALK)
         {
@@ -101,37 +101,37 @@ public class Enemy02Move : MonoBehaviour
             curMode = Enemy02Mode.PLAYER_DIE;
         }
 
-        // UŒ‚‚ª“–‚½‚Á‚ÄƒmƒbƒNƒoƒbƒNˆ—‚µ‚Ä‚È‚¢‚Æ‚«
+        // ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äƒmï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚È‚ï¿½ï¿½Æ‚ï¿½
         if (scissors.GetComponent<AttackContoroll>().GethitFlg() && !isStart)
         {
-            // ƒtƒ‰ƒOƒIƒ“
+            // ï¿½tï¿½ï¿½ï¿½Oï¿½Iï¿½ï¿½
             isStart = true;
-            // Œ»İƒ‚[ƒh‚ğ•Û‘¶
+            // ï¿½ï¿½ï¿½İƒï¿½ï¿½[ï¿½hï¿½ï¿½Û‘ï¿½
             preMode = curMode;
-            // ƒmƒbƒNƒoƒbƒNƒ‚[ƒh‚Ö
+            // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½
             curMode = Enemy02Mode.KNOCK;
         }
 
-        // ƒ‚[ƒh‚²‚Æ‚És“®ƒpƒ^[ƒ“‚ğ•Ï‚¦‚é
+        // ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½Æ‚Ésï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½Ï‚ï¿½ï¿½ï¿½
         switch (curMode)
         {
             case Enemy02Mode.WALK:
-                // ‰E’[‚És‚Á‚½‚ç¶‚Ö•ûŒü“]Š·
+                // ï¿½Eï¿½[ï¿½Ésï¿½ï¿½ï¿½ï¿½ï¿½ç¶ï¿½Ö•ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½
                 if (thistrans.position.x > initPos.x + walkRange)
                 {
                     dir = -1;
                 }
-                // ¶’[‚És‚Á‚½‚ç‰E‚Ö•ûŒü“]Š·
+                // ï¿½ï¿½ï¿½[ï¿½Ésï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½Ö•ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½
                 if (thistrans.position.x < initPos.x - walkRange)
                 {
                     dir = 1;
                 }
                 //transform.rotation = Quaternion.LookRotation(new Vector3(dir, 0, 0));
 
-                // ƒvƒŒƒCƒ„[‚ª‹”F”ÍˆÍ‚É‚¢‚é‚©
+                // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ÍˆÍ‚É‚ï¿½ï¿½é‚©
                 ObakeSearch(dir);
 
-                // WalkƒXƒe[ƒg‚ªÄ¶’†‚Ì‚Æ‚«‚Ì‚İˆÚ“®
+                // Walkï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½Ì‚Æ‚ï¿½ï¿½Ì‚İˆÚ“ï¿½
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
                 {
                     pos.x += dir * Time.deltaTime;
@@ -140,24 +140,24 @@ public class Enemy02Move : MonoBehaviour
 
 
             case Enemy02Mode.BACK:
-                // ‰ŠúˆÊ’u‚Ö–ß‚é•ûŒü‚ğæ“¾
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ö–ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
                 newDir = new Vector3((initPos.x - thistrans.position.x), (initPos.y - thistrans.position.y), 0).normalized;
                 //transform.rotation = Quaternion.LookRotation(new Vector3(newDir.x, 0, 0));
 
-                // ƒvƒŒƒCƒ„[‚ª‹”F”ÍˆÍ‚É‚¢‚é‚©
+                // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ÍˆÍ‚É‚ï¿½ï¿½é‚©
                 ObakeSearch(newDir.x);
                 
-                // •ûŒü‚ğ•Û‚³‚¹‚é
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ûï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 dir = newDir.x;
 
-                // ‰ŠúˆÊ’u‚Ö1.0fˆÈ“à‚Ü‚Å‹ß‚Ã‚¢‚½‚ç
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½ï¿½1.0fï¿½È“ï¿½ï¿½Ü‚Å‹ß‚Ã‚ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (Mathf.Abs(initPos.x - thistrans.position.x) < 1.0f)
                 {
-                    // •à‚«ƒ‚[ƒh‚Ö
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½
                     curMode = Enemy02Mode.WALK;
                 }
 
-                // WalkƒXƒe[ƒg‚ªÄ¶’†‚Ì‚Æ‚«‚Ì‚İˆÚ“®
+                // Walkï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½Ì‚Æ‚ï¿½ï¿½Ì‚İˆÚ“ï¿½
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
                 {
                     pos.x += newDir.x * Time.deltaTime;
@@ -166,16 +166,16 @@ public class Enemy02Move : MonoBehaviour
                 break;
 
             case Enemy02Mode.CHASE:
-                // •ûŒü‚ğŒˆ’è
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 newDir = new Vector3(
                     (player.transform.position.x - thistrans.position.x),
                     (player.transform.position.y + 3.0f - thistrans.position.y), 0).normalized;
                 //transform.rotation = Quaternion.LookRotation(new Vector3(newDir.x, 0, 0));
 
-                // ’ÇÕƒAƒjƒŠJn(”­Œ©¨•à‚«)
+                // ï¿½ÇÕƒAï¿½jï¿½ï¿½ï¿½Jï¿½n(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
                 animator.SetBool("isChase", true);
                 
-                // UŒ‚‚ÖˆÚ‚é
+                // ï¿½Uï¿½ï¿½ï¿½ÖˆÚ‚ï¿½
                 if(Mathf.Abs(player.transform.position.x - thistrans.position.x) < 0.1f)
                 {
                     thistrans.position = new Vector3(player.transform.position.x,0,0);
@@ -183,21 +183,21 @@ public class Enemy02Move : MonoBehaviour
                 }
 
 
-                // Œ©¸‚¤ğŒ
-                // ƒvƒŒƒCƒ„[‚ª‹”F‹——£‚æ‚è‰“‚­‚És‚­‚©“Ëi‚µ‚Ä‚¢‚é“G‚ÌŒã‚ë‚És‚Á‚½‚Æ‚«
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è‰“ï¿½ï¿½ï¿½Ésï¿½ï¿½ï¿½ï¿½ï¿½Ëiï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Gï¿½ÌŒï¿½ï¿½Ésï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½
                 if (thistrans.position.x +  visualRange < player.transform.position.x ||
                     thistrans.position.x - visualRange > player.transform.position.x)
                 {
-                    Debug.Log("“¦‚°Ø‚Á‚½");
-                    // Attack‚ğI—¹
+                    Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Ø‚ï¿½ï¿½ï¿½");
+                    // Attackï¿½ï¿½ï¿½Iï¿½ï¿½
                     animator.SetBool("isChase", false);
                     animator.SetBool("isAttack", false);
-                    // ‰ŠúˆÊ’u‚Ö–ß‚éƒ‚[ƒh‚Ö
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ö–ß‚éƒ‚ï¿½[ï¿½hï¿½ï¿½
                     curMode = Enemy02Mode.BACK;
                 }
 
 
-                // ChaseƒXƒe[ƒg‚ªÄ¶’†‚Ì‚Æ‚«‚Ì‚İˆÚ“®
+                // Chaseï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½Ì‚Æ‚ï¿½ï¿½Ì‚İˆÚ“ï¿½
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chase"))
                 {
                     rb.useGravity = false;
@@ -211,9 +211,9 @@ public class Enemy02Move : MonoBehaviour
 
             case Enemy02Mode.ATTACK:
                 newDir = new Vector3(0, player.transform.position.y - thistrans.position.y, 0);
-                // UŒ‚ƒAƒjƒ
+                // ï¿½Uï¿½ï¿½ï¿½Aï¿½jï¿½ï¿½
                 animator.SetBool("isAttack", true);
-                // UŒ‚ƒAƒjƒ‚É‡‚í‚¹‚Ä~‰º
+                // ï¿½Uï¿½ï¿½ï¿½Aï¿½jï¿½ï¿½ï¿½Éï¿½ï¿½í‚¹ï¿½Ä~ï¿½ï¿½
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
                     animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
                 {
@@ -223,13 +223,13 @@ public class Enemy02Move : MonoBehaviour
                     }
                 }
 
-                // UŒ‚ƒAƒjƒ‚ªI‚í‚Á‚½‚çAttackEnd‚É©“®‘JˆÚ
+                // ï¿½Uï¿½ï¿½ï¿½Aï¿½jï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AttackEndï¿½Éï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("AttackEnd"))
                 {
                     animator.SetBool("isChase", false);
                     animator.SetBool("isAttack", false);
 
-                    // ”ÍˆÍŠO
+                    // ï¿½ÍˆÍŠO
                     if (thistrans.position.x + visualRange < player.transform.position.x ||
                         thistrans.position.x - visualRange > player.transform.position.x)
                     {
@@ -244,7 +244,7 @@ public class Enemy02Move : MonoBehaviour
                 break;
 
             case Enemy02Mode.DIE:
-                // ƒfƒoƒbƒO—p
+                // ï¿½fï¿½oï¿½bï¿½Oï¿½p
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
                     if (enemy != null)
@@ -253,7 +253,7 @@ public class Enemy02Move : MonoBehaviour
                     }
                 }
 
-                // “|‚ê‚éƒ‚[ƒVƒ‡ƒ“
+                // ï¿½|ï¿½ï¿½éƒ‚ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
                 animator.SetBool("isDie", true);
 
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
@@ -270,21 +270,21 @@ public class Enemy02Move : MonoBehaviour
                 break;
 
             case Enemy02Mode.PLAYER_DIE:
-                // ‰ŠúˆÊ’u‚Ö–ß‚é•ûŒü‚ğæ“¾
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ö–ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
                 newDir = new Vector3((initPos.x - thistrans.position.x), (initPos.y - thistrans.position.y), 0).normalized;
                 //transform.rotation = Quaternion.LookRotation(new Vector3(newDir.x, 0, 0));
 
-                // •ûŒü‚ğ•Û‚³‚¹‚é
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ûï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 dir = newDir.x;
 
-                // ‰ŠúˆÊ’u‚Ö1.0fˆÈ“à‚Ü‚Å‹ß‚Ã‚¢‚½‚ç
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½ï¿½1.0fï¿½È“ï¿½ï¿½Ü‚Å‹ß‚Ã‚ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (Mathf.Abs(initPos.x - thistrans.position.x) < 1.0f)
                 {
-                    // •à‚«ƒ‚[ƒh‚Ö
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½
                     curMode = Enemy02Mode.WALK;
                 }
 
-                // WalkƒXƒe[ƒg‚ªÄ¶’†‚Ì‚Æ‚«‚Ì‚İˆÚ“®
+                // Walkï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½Ì‚Æ‚ï¿½ï¿½Ì‚İˆÚ“ï¿½
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
                 {
                     pos.x += newDir.x * Time.deltaTime;
@@ -327,7 +327,7 @@ public class Enemy02Move : MonoBehaviour
                 break;
         }
 
-        // À•WXV
+        // ï¿½ï¿½ï¿½Wï¿½Xï¿½V
         thistrans.position = pos;
     }
 
@@ -351,24 +351,24 @@ public class Enemy02Move : MonoBehaviour
 
     private void BackMode()
     {
-        // ‰ŠúˆÊ’u‚Ö–ß‚é•ûŒü‚ğæ“¾
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ö–ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
         newDir = new Vector3((initPos.x - thistrans.position.x), (initPos.y - thistrans.position.y), 0).normalized;
         //transform.rotation = Quaternion.LookRotation(new Vector3(newDir.x, 0, 0));
 
-        // ƒvƒŒƒCƒ„[‚ª‹”F”ÍˆÍ‚É‚¢‚é‚©
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ÍˆÍ‚É‚ï¿½ï¿½é‚©
         ObakeSearch(newDir.x);
 
-        // •ûŒü‚ğ•Û‚³‚¹‚é
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ûï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         dir = newDir.x;
 
-        // ‰ŠúˆÊ’u‚Ö1.0fˆÈ“à‚Ü‚Å‹ß‚Ã‚¢‚½‚ç
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½ï¿½1.0fï¿½È“ï¿½ï¿½Ü‚Å‹ß‚Ã‚ï¿½ï¿½ï¿½ï¿½ï¿½
         if (Mathf.Abs(initPos.x - thistrans.position.x) < 1.0f)
         {
-            // •à‚«ƒ‚[ƒh‚Ö
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½
             curMode = Enemy02Mode.WALK;
         }
 
-        // WalkƒXƒe[ƒg‚ªÄ¶’†‚Ì‚Æ‚«‚Ì‚İˆÚ“®
+        // Walkï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½Ì‚Æ‚ï¿½ï¿½Ì‚İˆÚ“ï¿½
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
         {
             pos.x += newDir.x * Time.deltaTime;
@@ -378,16 +378,16 @@ public class Enemy02Move : MonoBehaviour
 
     private void ChaseMode()
     {
-        // •ûŒü‚ğŒˆ’è
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         newDir = new Vector3(
             (player.transform.position.x - thistrans.position.x),
             (player.transform.position.y + 3.0f - thistrans.position.y), 0).normalized;
         //transform.rotation = Quaternion.LookRotation(new Vector3(newDir.x, 0, 0));
 
-        // ’ÇÕƒAƒjƒŠJn(”­Œ©¨•à‚«)
+        // ï¿½ÇÕƒAï¿½jï¿½ï¿½ï¿½Jï¿½n(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
         animator.SetBool("isChase", true);
 
-        // UŒ‚‚ÖˆÚ‚é
+        // ï¿½Uï¿½ï¿½ï¿½ÖˆÚ‚ï¿½
         if (Mathf.Abs(player.transform.position.x - thistrans.position.x) < 0.1f)
         {
             thistrans.position = new Vector3(player.transform.position.x, 0, 0);
@@ -395,21 +395,21 @@ public class Enemy02Move : MonoBehaviour
         }
 
 
-        // Œ©¸‚¤ğŒ
-        // ƒvƒŒƒCƒ„[‚ª‹”F‹——£‚æ‚è‰“‚­‚És‚­‚©“Ëi‚µ‚Ä‚¢‚é“G‚ÌŒã‚ë‚És‚Á‚½‚Æ‚«
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è‰“ï¿½ï¿½ï¿½Ésï¿½ï¿½ï¿½ï¿½ï¿½Ëiï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Gï¿½ÌŒï¿½ï¿½Ésï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½
         if (thistrans.position.x + visualRange < player.transform.position.x ||
             thistrans.position.x - visualRange > player.transform.position.x)
         {
-            Debug.Log("“¦‚°Ø‚Á‚½");
-            // Attack‚ğI—¹
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Ø‚ï¿½ï¿½ï¿½");
+            // Attackï¿½ï¿½ï¿½Iï¿½ï¿½
             animator.SetBool("isChase", false);
             animator.SetBool("isAttack", false);
-            // ‰ŠúˆÊ’u‚Ö–ß‚éƒ‚[ƒh‚Ö
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ö–ß‚éƒ‚ï¿½[ï¿½hï¿½ï¿½
             curMode = Enemy02Mode.BACK;
         }
 
 
-        // ChaseƒXƒe[ƒg‚ªÄ¶’†‚Ì‚Æ‚«‚Ì‚İˆÚ“®
+        // Chaseï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½Ì‚Æ‚ï¿½ï¿½Ì‚İˆÚ“ï¿½
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chase"))
         {
             rb.useGravity = false;
@@ -424,9 +424,9 @@ public class Enemy02Move : MonoBehaviour
     private void AttackMode()
     {
         newDir = new Vector3(0, player.transform.position.y - thistrans.position.y, 0);
-        // UŒ‚ƒAƒjƒ
+        // ï¿½Uï¿½ï¿½ï¿½Aï¿½jï¿½ï¿½
         animator.SetBool("isAttack", true);
-        // UŒ‚ƒAƒjƒ‚É‡‚í‚¹‚Ä~‰º
+        // ï¿½Uï¿½ï¿½ï¿½Aï¿½jï¿½ï¿½ï¿½Éï¿½ï¿½í‚¹ï¿½Ä~ï¿½ï¿½
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
         {
@@ -436,13 +436,13 @@ public class Enemy02Move : MonoBehaviour
             }
         }
 
-        // UŒ‚ƒAƒjƒ‚ªI‚í‚Á‚½‚çAttackEnd‚É©“®‘JˆÚ
+        // ï¿½Uï¿½ï¿½ï¿½Aï¿½jï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AttackEndï¿½Éï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("AttackEnd"))
         {
             animator.SetBool("isChase", false);
             animator.SetBool("isAttack", false);
 
-            // ”ÍˆÍŠO
+            // ï¿½ÍˆÍŠO
             if (thistrans.position.x + visualRange < player.transform.position.x ||
                 thistrans.position.x - visualRange > player.transform.position.x)
             {
@@ -457,7 +457,7 @@ public class Enemy02Move : MonoBehaviour
 
     private void DieMode()
     {
-        // ƒfƒoƒbƒO—p
+        // ï¿½fï¿½oï¿½bï¿½Oï¿½p
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if (enemy != null)
@@ -472,7 +472,7 @@ public class Enemy02Move : MonoBehaviour
             }
         }
 
-        // “|‚ê‚éƒ‚[ƒVƒ‡ƒ“
+        // ï¿½|ï¿½ï¿½éƒ‚ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
         animator.SetBool("isDie", true);
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
@@ -489,21 +489,21 @@ public class Enemy02Move : MonoBehaviour
 
     private void PlayerDieMode()
     {
-        // ‰ŠúˆÊ’u‚Ö–ß‚é•ûŒü‚ğæ“¾
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ö–ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
         newDir = new Vector3((initPos.x - thistrans.position.x), (initPos.y - thistrans.position.y), 0).normalized;
         //transform.rotation = Quaternion.LookRotation(new Vector3(newDir.x, 0, 0));
 
-        // •ûŒü‚ğ•Û‚³‚¹‚é
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ûï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         dir = newDir.x;
 
-        // ‰ŠúˆÊ’u‚Ö1.0fˆÈ“à‚Ü‚Å‹ß‚Ã‚¢‚½‚ç
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½ï¿½1.0fï¿½È“ï¿½ï¿½Ü‚Å‹ß‚Ã‚ï¿½ï¿½ï¿½ï¿½ï¿½
         if (Mathf.Abs(initPos.x - thistrans.position.x) < 1.0f)
         {
-            // •à‚«ƒ‚[ƒh‚Ö
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½
             curMode = Enemy02Mode.WALK;
         }
 
-        // WalkƒXƒe[ƒg‚ªÄ¶’†‚Ì‚Æ‚«‚Ì‚İˆÚ“®
+        // Walkï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½Ì‚Æ‚ï¿½ï¿½Ì‚İˆÚ“ï¿½
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
         {
             pos.x += newDir.x * Time.deltaTime;
@@ -515,16 +515,16 @@ public class Enemy02Move : MonoBehaviour
     {
         if (playerObj.GetComponent<PlayerStatus>().GetCurHp() > 0)
         {
-            // ƒvƒŒƒCƒ„[‚ğ”­Œ©‚µ‚½‚ç
-            // ‰EŒü‚¢‚Ä‚¢‚é‚Æ‚«
+            // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ğ”­Œï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            // ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Æ‚ï¿½
             if (Dir == 1.0f &&
             thistrans.position.x + Dir * visualRange > player.transform.position.x &&
             thistrans.position.x < player.transform.position.x)
             {
-                // “Ëi(UŒ‚)ƒ‚[ƒh‚Ö
+                // ï¿½Ëi(ï¿½Uï¿½ï¿½)ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½
                 curMode = Enemy02Mode.CHASE;
             }
-            // ¶Œü‚¢‚Ä‚¢‚é‚Æ‚«
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Æ‚ï¿½
             if (Dir == -1.0f &&
                 thistrans.position.x + Dir * visualRange < player.transform.position.x &&
                 thistrans.position.x > player.transform.position.x)
@@ -538,33 +538,33 @@ public class Enemy02Move : MonoBehaviour
     {
         switch (Step)
         {
-            // ƒvƒŒƒCƒ„[‹Â‚¯”½‚éiƒqƒbƒgƒXƒgƒbƒvHj
+            // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½qï¿½bï¿½gï¿½Xï¿½gï¿½bï¿½vï¿½Hï¿½j
             case 0:
-                // ©•ª‚ÌˆÊ’u‚ÆÚG‚µ‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğŒvZ‚µ‚Ä
-                // ‹——£‚Æ•ûŒü‚ğo‚µ‚Ä³‹K‰»
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ÌˆÊ’uï¿½ÆÚGï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÌˆÊ’uï¿½ï¿½ï¿½vï¿½Zï¿½ï¿½ï¿½ï¿½
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Æ•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Äï¿½ï¿½Kï¿½ï¿½
                 Vector3 distination = new Vector3((this.transform.position.x - player.transform.position.x), 0, 0).normalized;
 
-                // ƒmƒbƒNƒoƒbƒNƒAƒjƒ‚ªÄ¶‚³‚ê‚Ä‚¢‚éŠÔ
+                // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½Aï¿½jï¿½ï¿½ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Knock"))
                 {
-                    // ƒmƒbƒNƒoƒbƒN
+                    // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½N
                     pos.x += distination.x * Time.deltaTime;
                 }
-                // Ä¶‚³‚ê‚Ä‚¢‚éƒAƒjƒ‚ªI‚í‚Á‚½‚ç
+                // ï¿½Äï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Aï¿½jï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 {
-                    // ˆÚ“®Š®—¹‚µ‚½‚çŸ‚ÌƒXƒeƒbƒv‚Ö
+                    // ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½çŸï¿½ÌƒXï¿½eï¿½bï¿½vï¿½ï¿½
                     Step++;
                 }
                 break;
 
             case 1:
 
-                // ˆ—‡‚ğÅ‰‚É–ß‚·
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åï¿½ï¿½É–ß‚ï¿½
                 Step = 0;
-                // ƒmƒbƒNƒoƒbƒN‘O‚Ìƒ‚[ƒh‚É–ß‚·
+                // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½Oï¿½Ìƒï¿½ï¿½[ï¿½hï¿½É–ß‚ï¿½
                 curMode = preMode;
-                // ƒmƒbƒNƒoƒbƒNƒAƒjƒI—¹
+                // ï¿½mï¿½bï¿½Nï¿½oï¿½bï¿½Nï¿½Aï¿½jï¿½ï¿½ï¿½Iï¿½ï¿½
                 animator.SetBool("isKnock", false);
                 break;
         }
@@ -576,10 +576,9 @@ public class Enemy02Move : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             animator.SetBool("isCollide", true);
-            ////‰ŠúˆÊ’u‚Ö–ß‚éƒ‚[ƒh‚Ö
-            ///•à‚«ƒ‚[ƒh‚Ö
+            ////ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ö–ß‚éƒ‚ï¿½[ï¿½hï¿½ï¿½
+            ///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½
             curMode = Enemy02Mode.WALK;
-            Debug.Log("‚Ô‚Â‚©‚Á‚½");
         }
     }
 

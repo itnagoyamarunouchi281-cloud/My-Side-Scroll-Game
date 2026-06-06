@@ -6,7 +6,9 @@ public class AttackContoroll : MonoBehaviour
 
     public float effectPosY;
 
-    public GameObject damageEffect;
+    public GameObject damageEffect1;
+    public GameObject damageEffect2;
+    public GameObject damageEffect3;
 
     EnemyStatus enemyStatus;
     
@@ -30,19 +32,47 @@ public class AttackContoroll : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && hitflg)
         {
             if (AttackCnt == 1)
             {
-                
+                if (damageEffect1 != null)
+                {
+                    GameObject effect = Instantiate(damageEffect1) as GameObject;
+                    effect.transform.position = new Vector3(
+                        this.gameObject.transform.position.x,
+                        this.gameObject.transform.position.y + effectPosY,
+                        this.gameObject.transform.position.z - 2.0f);
+                }
+
+                Attack();
             }
             if (AttackCnt == 2)
             {
-                
+                if (damageEffect2 != null)
+                {
+                    GameObject effect = Instantiate(damageEffect2) as GameObject;
+                    effect.transform.position = new Vector3(
+                        this.gameObject.transform.position.x,
+                        this.gameObject.transform.position.y + effectPosY,
+                        this.gameObject.transform.position.z - 2.0f);
+                }
+
+                Attack();
             }
             if (AttackCnt == 3)
             {
-                
+                if (damageEffect3 != null)
+                {
+                    GameObject effect = Instantiate(damageEffect3) as GameObject;
+                    effect.transform.position = new Vector3(
+                        this.gameObject.transform.position.x,
+                        this.gameObject.transform.position.y + effectPosY,
+                        this.gameObject.transform.position.z - 2.0f);
+                }
+
+                Attack();
+
                 AttackCnt = 0;
             }
 
@@ -86,15 +116,6 @@ public class AttackContoroll : MonoBehaviour
 
             hitflg = true;
 
-            if (damageEffect != null)
-            {
-                GameObject effect = Instantiate(damageEffect) as GameObject;
-                effect.transform.position = new Vector3(
-                    this.gameObject.transform.position.x,
-                    this.gameObject.transform.position.y + effectPosY,
-                    this.gameObject.transform.position.z - 2.0f);
-            }
-
             AttackCnt++;
         }
     }
@@ -126,14 +147,6 @@ public class AttackContoroll : MonoBehaviour
             PlayerController2D.OnPlayerDamagedEvent.Invoke();
 
             hitflg = true;
-            if (damageEffect != null)
-            {
-                GameObject effect = Instantiate(damageEffect) as GameObject;
-                effect.transform.position = new Vector3(
-                    this.gameObject.transform.position.x,
-                    this.gameObject.transform.position.y + effectPosY,
-                    this.gameObject.transform.position.z - 2.0f);
-            }
             AttackCnt++;
         }
     }
