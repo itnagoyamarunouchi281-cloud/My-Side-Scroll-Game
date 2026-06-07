@@ -18,9 +18,14 @@ public class ItemInfo : MonoBehaviour
     public Text stasText_1;
     public Text stasText_2;
 
-    public void SetItemData(string category, string itemName)
+    public void SetItemData()
     {
-        stasText_1.text = category;
-        stasText_2.text = itemName;
+        stasText_1.text = itemData.GetItemType().ToString();
+        stasText_2.text = itemData.GetItemName();
+    }
+
+    void Start()
+    {
+        SetItemData();
     }
 }

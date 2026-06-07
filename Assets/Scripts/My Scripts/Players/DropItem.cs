@@ -1,59 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DropItem : MonoBehaviour
 {
     // ================================
-    // ƒAƒCƒeƒ€ƒhƒƒbƒvŠÖ˜A
+    // ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½hï¿½ï¿½ï¿½bï¿½vï¿½Ö˜A
     // ================================
-    // “G‚ÉƒAƒ^ƒbƒ`
-    // “G‚Ìí—Ş‚É‰‚¶‚ÄƒAƒCƒeƒ€‚ğƒhƒƒbƒv‚³‚¹‚é
+    // ï¿½Gï¿½ÉƒAï¿½^ï¿½bï¿½`
+    // ï¿½Gï¿½Ìï¿½Ş‚É‰ï¿½ï¿½ï¿½ï¿½ÄƒAï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½bï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     EnemyInfo enemyinfo;
 
-    // ƒvƒŒƒCƒ„[‚Ìƒ‰ƒbƒN’l‚ğæ“¾‚·‚é•Ï”
+    // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìƒï¿½ï¿½bï¿½Nï¿½lï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½Ïï¿½
     public float playerLuck;
 
-    // ƒAƒCƒeƒ€‚Ìî•ñiƒhƒƒbƒv—¦j‚ğæ“¾
+    // ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½Ìï¿½ï¿½iï¿½hï¿½ï¿½ï¿½bï¿½vï¿½ï¿½ï¿½jï¿½ï¿½ï¿½æ“¾
     private float DropRate;
 
-    // —”Ši”[—p
+    // ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½[ï¿½p
     private int random;
 
-    // ƒhƒƒbƒv‚·‚éƒAƒCƒeƒ€ƒIƒuƒWƒFƒNƒg
-    // “G‚P‘Ì‚Å•¡”—‚¿‚é‰Â”\«‚ğl—¶
+    // ï¿½hï¿½ï¿½ï¿½bï¿½vï¿½ï¿½ï¿½ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
+    // ï¿½Gï¿½Pï¿½Ì‚Å•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â”\ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½
     public List<GameObject> ObjLists = new List<GameObject>();
 
     public void Init()
     {
-        // EnemyInfoƒRƒ“ƒ|[ƒlƒ“ƒgæ“¾—p
+        // EnemyInfoï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½æ“¾ï¿½p
         enemyinfo = GetComponent<EnemyInfo>();
 
-        // “G‚ªƒAƒCƒeƒ€‚ğƒhƒƒbƒv‚·‚éŠm—¦
+        // ï¿½Gï¿½ï¿½ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½bï¿½vï¿½ï¿½ï¿½ï¿½mï¿½ï¿½
         DropRate = enemyinfo.enemyData.GetDroprate();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ƒfƒoƒbƒO•\¦F“G‚Ìí—Ş
+        // ï¿½fï¿½oï¿½bï¿½Oï¿½\ï¿½ï¿½ï¿½Fï¿½Gï¿½Ìï¿½ï¿½
         //Debug.Log(enemyinfo.enemyData.GetEnemyType());
     }
 
     public void ItemDrop()
     {
-        // ObjLists‚Éİ’è‚³‚ê‚Ä‚¢‚éƒAƒCƒeƒ€‚ğƒhƒƒbƒv
+        // ObjListsï¿½Éİ’è‚³ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½bï¿½v
         for (int i = 0; i < ObjLists.Count; ++i)
         {
-            // —”¶¬(1~100)
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1~100)
             random = Random.Range(1, 100);
-            // Šm—¦‚Åƒhƒƒbƒv
-            // ‰E•Ó‚Ì’l(ƒAƒCƒeƒ€ƒhƒƒbƒv’l)‚ª100ˆÈã‚É‚È‚ê‚ÎŠm’èƒhƒƒbƒv
+            // ï¿½mï¿½ï¿½ï¿½Åƒhï¿½ï¿½ï¿½bï¿½v
+            // ï¿½Eï¿½Ó‚Ì’l(ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½hï¿½ï¿½ï¿½bï¿½vï¿½l)ï¿½ï¿½100ï¿½Èï¿½É‚È‚ï¿½ÎŠmï¿½ï¿½hï¿½ï¿½ï¿½bï¿½v
             if (random <= (playerLuck * DropRate) / 1000)
             {
-                Instantiate(ObjLists[i], 
+                GameObject itemObj = Instantiate(ObjLists[i], 
                     transform.position + new Vector3(i,0,0), 
                     Quaternion.identity);
+                
             }
         }
     }

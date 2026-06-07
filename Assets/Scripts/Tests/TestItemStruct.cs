@@ -21,7 +21,8 @@ public class TestItemStruct : MonoBehaviour
         }
     }
 
-    public Transform spawnRoot;
+    public Transform spawnPoint;
+    public Transform itemRoot;
     public int itemNum;
     public List<Item> itemList = new List<Item>();
 
@@ -29,7 +30,7 @@ public class TestItemStruct : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             itemNum++;
 
@@ -39,10 +40,10 @@ public class TestItemStruct : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            StartCoroutine(LoadItems());
-        }
+        // if(Input.GetKeyDown(KeyCode.R))
+        // {
+        //     StartCoroutine(LoadItems());
+        // }
 
         if(Input.GetKeyDown(KeyCode.G))
         {
@@ -93,9 +94,11 @@ public class TestItemStruct : MonoBehaviour
             return;
         }
 
-        Vector3 offset = spawnRoot.position;
+        Vector3 offset = spawnPoint.position;
 
         Item item = itemList[itemNum];
-        Instantiate(item.itemPrefab, transform.position + offset, Quaternion.identity, spawnRoot);
+        GameObject obj_Item = Instantiate(item.itemPrefab, transform.position + offset, Quaternion.identity, spawnPoint);
+        obj_Item.transform.SetParent(itemRoot);
+        obj_Item.transform.localScale = Vector3.one;
     }
 }
