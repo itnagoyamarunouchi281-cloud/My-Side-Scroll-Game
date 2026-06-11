@@ -84,14 +84,12 @@ public class AttackContoroll : MonoBehaviour
     {
         if(isAttack)
         {
-            // �G���󂯂�_���[�W�i�v���C���[�̍U���� - �G�̖h��́j
             int damage = Mathf.Max(1, StaticStatus.GetPlayerATK() - enemyStatus.GetDEF());
             Debug.Log($"damage: {damage}");
             enemyStatus.SetHp(damage);
 
             if (se != null)
             {
-                // �U���q�b�g��
                 se.GetComponent<SEManager>().PlaySE(0);
             }
 
@@ -101,10 +99,8 @@ public class AttackContoroll : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        // �I�u�W�F�N�g�^�O��Enemy�̂Ƃ�
         if (!hitflg && collision.tag == "Enemy")
         {
-            // �G�L������|���������擾
             enemyInfo = collision.gameObject.GetComponent<EnemyInfo>();
             
             enemy = collision.gameObject.GetComponent<Enemy>();
@@ -132,10 +128,8 @@ public class AttackContoroll : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        // �I�u�W�F�N�g�^�O��Enemy�̂Ƃ�
         if (!hitflg && other.tag == "Enemy")
         {
-            // �G�L������|���������擾
             enemyInfo = other.gameObject.GetComponent<EnemyInfo>();
             
             enemy = other.gameObject.GetComponent<Enemy>();

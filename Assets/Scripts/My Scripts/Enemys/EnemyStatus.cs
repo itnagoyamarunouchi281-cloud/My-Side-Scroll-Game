@@ -5,37 +5,25 @@ using UnityEngine.UI;
 
 public class EnemyStatus : MonoBehaviour
 {
-    // ================================
-    // �G�̏����擾���ăX�e�[�^�X�ݒ�
-    // ================================
-
-    // �G�l�~�[�̏��擾�p
     EnemyInfo enemyinfo;
 
-    // �G��MaxHP
     [SerializeField] private int maxHP;
 
-    // �G�̌��݂�HP
     [SerializeField] private int curHP;
 
-    // �G�̍U����
     [SerializeField] int ATK;
 
     [SerializeField] int DEF;
 
-    // �G�̖��O
-    [SerializeField] string enemyName;/*2024/11/20*/
+    [SerializeField] string enemyName;
 
-    // HP�\���pUI
     [SerializeField] private GameObject HPUI;
 
-    // HP�\���p�X���C�_�[
     private Slider hpSlider;
 
     
     public void Init()
     {
-        // �G�̃f�[�^����X�e�[�^�X��ǂݎ��ݒ�
         enemyinfo = GetComponent<EnemyInfo>();
         curHP = maxHP = enemyinfo.enemyData.GetHp();
         ATK = enemyinfo.enemyData.GetATK();
@@ -44,16 +32,6 @@ public class EnemyStatus : MonoBehaviour
         HPUI.SetActive(true);
         hpSlider = HPUI.transform.Find("HPBar").GetComponent<Slider>();
         hpSlider.value = 1.0f;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // ���FZ�L�[��HP����
-        if(Input.GetKeyUp(KeyCode.Q))
-        {
-            SetHp(20);            
-        }
     }
 
     public int GetDead()
@@ -66,7 +44,6 @@ public class EnemyStatus : MonoBehaviour
         if(0 < this.curHP)
             this.curHP -= hp;
 
-        // HP�\���pUI�̃A�b�v�f�[�g
         UpdateHPValue();
     }
 
@@ -90,13 +67,11 @@ public class EnemyStatus : MonoBehaviour
         return DEF;
     }
 
-    /*2024/11/20*/
     public string GetEnemyName()
     {
         return enemyName;
     }
 
-    // ���񂾂�HPUI���\���ɂ���
     public void HideStatusUI()
     {
         HPUI.SetActive(false);

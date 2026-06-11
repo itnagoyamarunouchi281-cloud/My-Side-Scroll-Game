@@ -242,31 +242,38 @@ public class Enemy01Move : MonoBehaviour
 
     private void KnockBack()
     {
-        
-        switch (Step)
+        Vector3 distination = new Vector3(this.transform.position.x - player.transform.position.x, 0, 0).normalized;
+
+        if(Step == 0)
+        {       
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Knock"))
+            {
+                pos.x += distination.x * Time.deltaTime;
+            }
+
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            {
+                Step++;
+            }
+        }
+        else if(Step == 1)
         {
-            case 0:
+            Step = 0;
+            curMode = Enemy01Mode.BACK;
+            animator.SetBool("isKnock", false);
+        }
+        else
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Knock"))
+            {
+                pos.x += distination.x * Time.deltaTime;
+                pos.y += distination.y * Time.deltaTime;
+            }
 
-                Vector3 distination = new Vector3((this.transform.position.x - player.transform.position.x), 0, 0).normalized;
-                
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Knock"))
-                {
-                    pos.x += distination.x * Time.deltaTime;
-                }
-
-                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
-                {
-                    Step++;
-                }
-
-                break;
-            
-            case 1:
-                Step = 0;
-                curMode = preMode;
-                animator.SetBool("isKnock", false);
-                
-                break;
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            {
+                Step++;
+            }
         }
     }
 
@@ -276,8 +283,9 @@ public class Enemy01Move : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
+            isStart = true;
             animator.SetBool("isCollide", true);
-            curMode = Enemy01Mode.BACK;
+            curMode = Enemy01Mode.KNOCK;
         }
     }
 

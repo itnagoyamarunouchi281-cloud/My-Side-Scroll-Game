@@ -243,32 +243,39 @@ public class Enemy04Move : MonoBehaviour
 
     private void KnockBack()
     {
-        switch (Step)
+        Vector3 distination = new Vector3(this.transform.position.x - player.transform.position.x, 0, 0).normalized;
+
+        if(Step == 0)
         {
-            case 0:
-                
-                Vector3 distination = new Vector3((this.transform.position.x - player.transform.position.x), 0, 0).normalized;
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Knock"))
+            {
+                pos.x += distination.x * Time.deltaTime;
+            }
 
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Knock"))
-                {
-                    pos.x += distination.x * Time.deltaTime;
-                }
-                
-                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
-                {
-                    Step++;
-                }
-                break;
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            {
+                Step++;
+            }
+        }
+        else if(Step == 1)
+        {
+            isStart = false;
+            Step = 0;
+            curMode = preMode;
+            animator.SetBool("isKnock", false);            
+        }
+        else
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Knock"))
+            {
+                pos.x += distination.x * Time.deltaTime;
+                pos.y += distination.y * Time.deltaTime;
+            }
 
-            case 1:
-                isStart = false;
-                Step = 0;
-                curMode = preMode;
-                animator.SetBool("isKnock", false);
-                break;
-
-            default:
-                break;
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            {
+                Step++;
+            }
         }
     }
 
@@ -278,8 +285,9 @@ public class Enemy04Move : MonoBehaviour
         
         if (collision.gameObject.tag == "Player")
         {
+            isStart = true;
             animator.SetBool("isCollide", true);
-            curMode = Enemy03Mode.BACK;
+            curMode = Enemy03Mode.KNOCK;
         }
     }
 
@@ -290,6 +298,7 @@ public class Enemy04Move : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             animator.SetBool("isCollide", false);
+            isStart = false;
         }
     }
 }

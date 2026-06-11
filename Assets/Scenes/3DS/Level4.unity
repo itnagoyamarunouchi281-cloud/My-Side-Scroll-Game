@@ -255,7 +255,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4039152199667631389, guid: db10e2cbe3448c542b32280d85010e9c, type: 3}
       propertyPath: DebugMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6902639764855115181, guid: db10e2cbe3448c542b32280d85010e9c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9773,7 +9773,6 @@ Transform:
   - {fileID: 1236207438}
   - {fileID: 295919237}
   - {fileID: 1854049259}
-  - {fileID: 769203137}
   m_Father: {fileID: 1484975875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &589949999
@@ -10894,37 +10893,6 @@ MonoBehaviour:
     enemyPrefabs: {fileID: 5464999531932106488, guid: c717e16a4eb244a4d87a593da0139fa3, type: 3}
     trans: {fileID: 1880824742}
     isSpawn: 1
---- !u!1 &769203136
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 769203137}
-  m_Layer: 7
-  m_Name: FirePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &769203137
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769203136}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.99}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 589949998}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &777691658
 GameObject:
   m_ObjectHideFlags: 0
@@ -11522,72 +11490,6 @@ Transform:
   - {fileID: 628628080}
   - {fileID: 1819964009}
   m_Father: {fileID: 588120034}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &924192005
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 924192007}
-  - component: {fileID: 924192006}
-  m_Layer: 0
-  m_Name: ItemRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &924192006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 924192005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb13e7ed3debd70409e510efc7305964, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 769203137}
-  itemRoot: {fileID: 924192007}
-  itemNum: 0
-  itemList:
-  - itemPrefab: {fileID: 6848133851868410682, guid: d0f6dc77a1efdf74eb9d85b50851ae7e, type: 3}
-    itemType: 0
-    weight: 0
-  - itemPrefab: {fileID: 6848133851868410682, guid: f0918573263526a44985a14eb387cf84, type: 3}
-    itemType: 1
-    weight: 0
-  - itemPrefab: {fileID: 6848133851868410682, guid: 40913caab43a7ed47a9c1c99fec93f0f, type: 3}
-    itemType: 2
-    weight: 0
-  - itemPrefab: {fileID: 6848133851868410682, guid: 864ae2b0bd81078449232212218a4139, type: 3}
-    itemType: 3
-    weight: 0
-  - itemPrefab: {fileID: 6848133851868410682, guid: 7201a5001ebcc624d8555458008aded7, type: 3}
-    itemType: 4
-    weight: 0
-  - itemPrefab: {fileID: 6848133851868410682, guid: 37d4b222a8c5e384586b7488ef2793a7, type: 3}
-    itemType: 5
-    weight: 0
---- !u!4 &924192007
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 924192005}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1484975875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &938230514
 PrefabInstance:
@@ -14063,7 +13965,6 @@ Transform:
   - {fileID: 588120034}
   - {fileID: 236494938}
   - {fileID: 168367823}
-  - {fileID: 924192007}
   - {fileID: 589949998}
   - {fileID: 754418914}
   m_Father: {fileID: 0}

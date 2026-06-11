@@ -40,11 +40,6 @@ public class TestItemStruct : MonoBehaviour
             }
         }
 
-        // if(Input.GetKeyDown(KeyCode.R))
-        // {
-        //     StartCoroutine(LoadItems());
-        // }
-
         if(Input.GetKeyDown(KeyCode.G))
         {
             SpawnItem();

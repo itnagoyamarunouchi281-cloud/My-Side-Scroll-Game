@@ -11,7 +11,10 @@ public class Quest_Level_1 : IClearlable
     public static UnityEvent OnGameClearEvent = new UnityEvent();
 
     private int enemyCounter;
+    private int enemyNum = 1;
     private bool isGameClear;
+
+    public int EnemyCounter {get => enemyCounter; }
 
     void Start()
     {
@@ -19,7 +22,7 @@ public class Quest_Level_1 : IClearlable
 
         OnEnemyDestroyCountEvent.AddListener(() =>
         {
-            AddScore(1);
+            AddScore(enemyNum);
         });
 
         OnGameClearEvent.AddListener(() =>
@@ -51,5 +54,10 @@ public class Quest_Level_1 : IClearlable
     {
         enemyCounter += point;
         enemyDeadText.text = $"{EnemyData.EnemyType.ENEMY}:{enemyCounter} / {clearNum}";
+    }
+
+    public int GetEnemyNum()
+    {
+        return enemyCounter;
     }
 }

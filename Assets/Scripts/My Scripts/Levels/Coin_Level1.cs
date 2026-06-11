@@ -11,7 +11,10 @@ public class Coin_Level1 : IClearlable
     public static UnityEvent OnCoinCountEvent = new UnityEvent();
     public static UnityEvent OnGameClearEvent = new UnityEvent();
     private int itemCounter;
+    private int itemNum = 1;
     private bool isGameClear;
+
+    public int ItemCounter { get => itemCounter; }
 
     void Start()
     {
@@ -19,7 +22,7 @@ public class Coin_Level1 : IClearlable
 
         OnCoinCountEvent.AddListener(() =>
         {
-            AddScore(1);
+            AddScore(itemNum);
         });
 
         OnGameClearEvent.AddListener(() =>
