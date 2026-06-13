@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sum: 1
-  enemyId: 0
   enemyName: 
 --- !u!114 &8877484430991178310
 MonoBehaviour:
@@ -292,6 +291,7 @@ MonoBehaviour:
   playerLuck: 1000
   ObjLists:
   - {fileID: 6848133851868410682, guid: 485e1019b36857d42a21622a9a31c705, type: 3}
+  - {fileID: 1955061375740598953, guid: 79369367afefced4ba7cc93aa2811fa4, type: 3}
 --- !u!114 &1348282879743450110
 MonoBehaviour:
   m_ObjectHideFlags: 0
