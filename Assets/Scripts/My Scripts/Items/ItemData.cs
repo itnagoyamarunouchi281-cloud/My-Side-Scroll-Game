@@ -9,21 +9,9 @@ public class ItemData : ScriptableObject
 {
     public enum Type
     {
-        アングラ,
-        文化民族,
-        エレメント,
-        ファンタジー,
-        ゴシック,
-        ホラー,
-        海賊,
-        カジュアル,
-        虫動物,
-        謎系,
-        ノーマル,
-        SF,
-        神話,
-        スチームパンク,
-        和風,
+        COIN,
+        SPHERE,
+        CUBE,
 
         MAX_ITEM
     }

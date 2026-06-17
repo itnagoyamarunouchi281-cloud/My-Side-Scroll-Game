@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Title : MonoBehaviour
 {
-    // ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğI—¹
+    // ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½
     public void QuitApplication()
     {
         Application.Quit();
+    }
+
+    public void SceneChange(string sceneName)
+    {
+        FadeManager.Instance.LoadScene(sceneName, 1.0f);
     }
 }

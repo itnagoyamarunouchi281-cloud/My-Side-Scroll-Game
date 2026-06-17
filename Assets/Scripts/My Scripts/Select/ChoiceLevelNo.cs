@@ -1,23 +1,32 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class ChoiceLevelNo : MonoBehaviour
 {
-    [SerializeField] private Button[] levelButtons;
+    public List<Button> LevelButtonList;
 
-    public void LevelNo(int no)
-    {
-        StaticClear.StageNo = no;
-    }
+    [SerializeField] private StaticClear staticClear;
 
-    private void Start()
+    private int clearNum = 0;
+
+    void Start()
     {
-        for (int i = 1; i < levelButtons.Length; i++)
+        staticClear.LevelNo(LevelButtonList.Count);
+
+        for(int i = 1; i < LevelButtonList.Count - 1; i++)
         {
-            if (i <= StaticClear.GetClearNum())
-                levelButtons[i].interactable = true;
-            else
-                levelButtons[i].interactable = false;
+            LevelButtonList[i].interactable = false;
+        }
+
+        while(clearNum < LevelButtonList.Count)
+        {
+            if(clearNum <= staticClear.GetClearNum())
+            {
+                LevelButtonList[clearNum].interactable = true;
+            }
+
+            clearNum++;
         }
     }
 }

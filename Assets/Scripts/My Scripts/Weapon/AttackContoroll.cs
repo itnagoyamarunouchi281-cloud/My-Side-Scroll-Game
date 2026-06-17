@@ -10,6 +10,8 @@ public class AttackContoroll : MonoBehaviour
     public GameObject damageEffect2;
     public GameObject damageEffect3;
 
+    private Animator anim;
+
     EnemyStatus enemyStatus;
     
     private MyEnemy myEnemy;
@@ -23,6 +25,8 @@ public class AttackContoroll : MonoBehaviour
 
 	void Start()
     {
+        anim = GetComponentInParent<Animator>();
+
         myEnemy = GameObject.Find("Actor").GetComponent<MyEnemy>();
 
         hitflg = false;
@@ -44,8 +48,6 @@ public class AttackContoroll : MonoBehaviour
                         this.gameObject.transform.position.y + effectPosY,
                         this.gameObject.transform.position.z - 2.0f);
                 }
-
-                Attack();
             }
             if (AttackCnt == 2)
             {
@@ -57,8 +59,6 @@ public class AttackContoroll : MonoBehaviour
                         this.gameObject.transform.position.y + effectPosY,
                         this.gameObject.transform.position.z - 2.0f);
                 }
-
-                Attack();
             }
             if (AttackCnt == 3)
             {
@@ -71,12 +71,17 @@ public class AttackContoroll : MonoBehaviour
                         this.gameObject.transform.position.z - 2.0f);
                 }
 
-                Attack();
-
                 AttackCnt = 0;
             }
 
+            Attack();
+
             isAttack = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            AttackAnim();
         }
 	}
 
@@ -95,6 +100,11 @@ public class AttackContoroll : MonoBehaviour
 
             isAttack = false;
         }
+    }
+
+    void AttackAnim()
+    {
+        anim.SetTrigger("Attack");
     }
 
     void OnTriggerEnter(Collider collision)
@@ -131,7 +141,6 @@ public class AttackContoroll : MonoBehaviour
         if (!hitflg && other.tag == "Enemy")
         {
             enemyInfo = other.gameObject.GetComponent<EnemyInfo>();
-            
             enemy = other.gameObject.GetComponent<Enemy>();
             if (enemy == null) return;
             enemyStatus = other.gameObject.GetComponent<EnemyStatus>();

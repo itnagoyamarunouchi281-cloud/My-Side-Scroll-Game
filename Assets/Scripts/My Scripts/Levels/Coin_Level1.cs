@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +11,15 @@ public class Coin_Level1 : IClearlable
     public Text coinAddText;
     public static UnityEvent OnCoinCountEvent = new UnityEvent();
     public static UnityEvent OnGameClearEvent = new UnityEvent();
+
     private int itemCounter;
     private int itemNum = 1;
     private bool isGameClear;
 
     public int ItemCounter { get => itemCounter; }
 
-    void Start()
+    private void OnEnable()
     {
-        ResetScore();
-
         OnCoinCountEvent.AddListener(() =>
         {
             AddScore(itemNum);
@@ -30,6 +30,25 @@ public class Coin_Level1 : IClearlable
             GameClear();
             GameClearSceneChange();
         });
+    }
+
+    private void OnDisable()
+    {
+        OnCoinCountEvent.RemoveListener(() =>
+        {
+            AddScore(itemNum);
+        });
+
+        OnGameClearEvent.RemoveListener(() =>
+        {
+            GameClear();
+            GameClearSceneChange();
+        });
+    }
+
+    void Start()
+    {
+        ResetScore();
     }
 
     void Update()

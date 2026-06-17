@@ -9,8 +9,6 @@ public class ItemHit : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // プレイヤーに当たったときの処理をここに記述
-            Debug.Log("アイテムがプレイヤーに当たりました！");
             // 例えば、アイテムを消す場合は以下のようにします
             Destroy(gameObject);
         }

@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     private float inputX;
     private bool isGrounded;
     private bool isJump;
-    private bool isAttacking;
     private bool isWalking;
 
     private GameObject scissors1;
@@ -75,13 +74,13 @@ public class Player : MonoBehaviour
         if (inputX > 0)
         {
             charaobj.transform.localScale = new Vector3(1, 1, 1);
-            transform.rotation = Quaternion.Euler(0, 90, 0);
+            transform.rotation = Quaternion.Euler(0, -90, 0);
             isWalking = true;
         }
         else if (inputX < 0)
         {
             charaobj.transform.localScale = new Vector3(-1, 1, 1);
-            transform.rotation = Quaternion.Euler(0, -90, 0);
+            transform.rotation = Quaternion.Euler(0, 90, 0);
             isWalking = true;
         }
         else
