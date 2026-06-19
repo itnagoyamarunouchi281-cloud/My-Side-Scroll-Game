@@ -4,16 +4,44 @@ using UnityEngine;
 
 public class MoveFloor : MonoBehaviour
 {
+    [SerializeField] private float timerA;
+    [SerializeField] private float dir;
+    [SerializeField] private float moveRange = 7.0f;
+
+    private Transform thistrans;
+    private Vector3 pos;
+    private Vector3 initPos;
+
     void Start()
     {
         //StartCoroutine(MoveTask());
+        dir = 1;
+    }
+
+    void Update()
+    {
+        thistrans = this.transform;
+        pos = thistrans.position;
+        
+        if (thistrans.position.y > initPos.y + moveRange)
+        {
+            dir = -1;
+        }
+
+        if (thistrans.position.y < initPos.y - moveRange)
+        {
+            dir = 1;
+        }
+
+        pos.y += dir * Time.deltaTime;
+        thistrans.position = pos;
     }
 
     IEnumerator MoveTask()
     {
-        MoveUp(3.5f);
+        MoveUp(timerA);
         yield return new WaitForSeconds(2f);
-        MoveDown(-3.5f);
+        MoveDown(-timerA);
     }
 
     public void MoveUp(float posY)

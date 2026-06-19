@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 8899107216667364105}
   - component: {fileID: 9086228736417442094}
   - component: {fileID: 1348282879743450110}
+  - component: {fileID: 81233039172405974}
   m_Layer: 0
   m_Name: child0
   m_TagString: Enemy
@@ -306,6 +307,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 794875416507128295}
   isdead: 0
+--- !u!135 &81233039172405974
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8683856913328835616}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.2
+  m_Center: {x: 0.000000059604645, y: -1.45, z: -0.00000008940697}
 --- !u!1001 &582544958733365056
 PrefabInstance:
   m_ObjectHideFlags: 0

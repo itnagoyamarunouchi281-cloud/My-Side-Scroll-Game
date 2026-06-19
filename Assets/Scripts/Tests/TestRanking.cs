@@ -18,13 +18,15 @@ public class TestRanking : MonoBehaviour
     // =============================================
     public static TestRanking Instance;
 
-    [SerializeField] private Text[] text_Score;
+    [SerializeField] private Text[] text_ScoreRanking;
 
-    private int highScore;
-    
+    public int highScore;
+
+    private const string RankingKey = "testRanking";
+
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -35,67 +37,61 @@ public class TestRanking : MonoBehaviour
         }
     }
 
-    public void SetScore(int point)
+    private void OnCoinCount()
     {
-        highScore += point;
+        highScore = GameManager.Instance.CurrentScore;
+        AddScore(highScore);
     }
 
-    public int GetScore()
+    private void OnEnable()
     {
-        return highScore;
+        Coin_Level1.OnCoinCountEvent.AddListener(OnCoinCount);
+    }
+
+    private void OnDisable()
+    {
+        Coin_Level1.OnCoinCountEvent.RemoveListener(OnCoinCount);
     }
 
     void Start()
     {
-        // 初期のランキングの出力
-        RankingLoad("testRanking");
+        var ranking = LoadRanking();
 
-        // ランキング更新
-        RankingUpdate("testRanking", highScore);
+        int count = Mathf.Min(ranking.Count, text_ScoreRanking.Length);
 
-        // 更新後のランキングの出力
-        RankingLoad("testRanking");
-    }
-
-    // =============================================
-    // ランキング処理に関わるメソッド
-    // =============================================
-
-    // ランキング更新メソッド
-    void RankingUpdate(string rankingKey, int newScore)
-    {
-        List<int> rankingScores = GetTopHighScores(rankingKey, 5);
-        rankingScores.Add(newScore);
-
-        rankingScores = rankingScores
-            .OrderByDescending(score => score)
-            .Take(5)
-            .ToList();
-
-        PlayerPrefs.SetString(rankingKey, string.Join(",", rankingScores));
-    }
-
-    // ランキング取得メソッド
-    void RankingLoad(string rankingKey)
-    {
-        List<int> rankingScores = GetTopHighScores(rankingKey, 5);
-
-        for (int i = 0; i < rankingScores.Count; i++)
+        for (int i = 0; i < count; i++)
         {
-            text_Score[i].text = $"{i + 1}位：{rankingScores[i]}";
+            text_ScoreRanking[i].text = $"{i + 1}位 : {ranking[i]}";
         }
     }
 
-    // topN のスコアを高い順に取得してソートする
-    List<int> GetTopHighScores(string rankingKey, int topCount)
+    public void AddScore(int score)
     {
-        string rankingText = PlayerPrefs.GetString(rankingKey, "500,400,300,200,100");
+        List<int> scores = LoadRanking();
 
-        return rankingText
-            .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(text => int.TryParse(text.Trim(), out int score) ? score : 0)
-            .OrderByDescending(score => score)
-            .Take(topCount)
+        scores.Add(score);
+
+        scores = scores
+            .OrderByDescending(x => x)
+            .Take(5)
             .ToList();
+
+        PlayerPrefs.SetString(
+            RankingKey,
+            string.Join(",", scores)
+        );
+    }
+
+    public List<int> LoadRanking()
+    {
+        string text =
+            PlayerPrefs.GetString(
+                RankingKey,
+                "500,400,300,200,100"
+            );
+
+        return text.Split(',')
+                   .Select(int.Parse)
+                   .ToList();
     }
 }

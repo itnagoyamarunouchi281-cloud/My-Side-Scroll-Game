@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4686501230573841915}
   - component: {fileID: 3710498682204554628}
   - component: {fileID: 8916395546929982267}
+  - component: {fileID: 6996195550146446706}
   m_Layer: 0
   m_Name: child0
   m_TagString: Enemy
@@ -189,6 +190,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 8311203195220348339}
   isdead: 0
+--- !u!135 &6996195550146446706
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5111680127247618315}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.2
+  m_Center: {x: 0.000000059604645, y: 1.45, z: -0.00000008940697}
 --- !u!1 &8311203195220348339
 GameObject:
   m_ObjectHideFlags: 0

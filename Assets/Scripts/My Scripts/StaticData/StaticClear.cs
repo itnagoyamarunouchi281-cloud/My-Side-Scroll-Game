@@ -29,9 +29,14 @@ public class StaticClear : MonoBehaviour
         }
     }
 
+    public static bool IsAllCleared()
+    {
+        return StageNo > 0 && ClearNum >= StageNo;
+    }
+
     void Start()
     {
-        if(ClearNum >= LevelButtonList.Count)
+        if(IsAllCleared())
         {
             FadeManager.Instance.LoadScene("ClearScene", 1.0f);
         }

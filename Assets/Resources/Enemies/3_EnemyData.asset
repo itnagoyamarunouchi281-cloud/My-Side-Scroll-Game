@@ -16,6 +16,6 @@ MonoBehaviour:
   enemyName: "\u884C\u3063\u305F\u308A\u6765\u305F\u308A\u3059\u308B\u751F\u304D\u7269"
   itemtype: 3
   Droprate: 1000
-  maxHp: 100
+  maxHp: 8
   ATK: 3
   DEF: 1

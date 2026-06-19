@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 2577496006176988204}
   - component: {fileID: 1663567099838848578}
   - component: {fileID: 1653513359935213805}
-  - component: {fileID: 4131578019433244454}
+  - component: {fileID: 3197182444314194500}
   m_Layer: 0
   m_Name: child0
   m_TagString: Enemy
@@ -310,8 +310,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1879258593316586055}
   isdead: 0
---- !u!136 &4131578019433244454
-CapsuleCollider:
+--- !u!135 &3197182444314194500
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -328,11 +328,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 3
+  m_Radius: 0.3
+  m_Center: {x: 0.000000059604645, y: 1.45, z: -0.00000008940697}
 --- !u!1001 &8133555836587756111
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,26 +7,32 @@ public class ChoiceLevelNo : MonoBehaviour
     public List<Button> LevelButtonList;
 
     [SerializeField] private StaticClear staticClear;
+    [SerializeField] private Button button_ranking;
 
-    private int clearNum = 0;
+    bool isTotalClear = false;
+    int i;
 
     void Start()
     {
+        button_ranking.interactable = isTotalClear;
+
         staticClear.LevelNo(LevelButtonList.Count);
 
-        for(int i = 1; i < LevelButtonList.Count - 1; i++)
+        int clearCount = staticClear.GetClearNum();
+
+        while (i < LevelButtonList.Count)
         {
-            LevelButtonList[i].interactable = false;
+            // Level1 is always unlocked.
+            // Levels 2..N unlock one by one as clearCount increases.
+            LevelButtonList[i].interactable = (i == 0 || i <= clearCount);
+
+            i++;
         }
 
-        while(clearNum < LevelButtonList.Count)
+        if(i <= clearCount)
         {
-            if(clearNum <= staticClear.GetClearNum())
-            {
-                LevelButtonList[clearNum].interactable = true;
-            }
-
-            clearNum++;
+            isTotalClear = true;
+            button_ranking.interactable = isTotalClear;
         }
     }
 }
