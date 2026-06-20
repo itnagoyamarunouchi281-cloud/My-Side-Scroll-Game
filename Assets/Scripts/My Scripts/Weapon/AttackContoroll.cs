@@ -36,7 +36,7 @@ public class AttackContoroll : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && hitflg)
+        if (Input.GetKeyDown(KeyCode.Space) && hitflg)
         {
             if (AttackCnt == 1)
             {

@@ -70,7 +70,6 @@ public class Coin_Level1 : IClearlable
     private void AddScore()
     {
         itemCounter += GameManager.Instance.CurrentScore;
-        Debug.Log($"aaaaaa{itemCounter}");
         coinAddText.text = $"{EnemyData.EnemyType.COIN}:{itemCounter} / {clearNum}";
     }
 }
