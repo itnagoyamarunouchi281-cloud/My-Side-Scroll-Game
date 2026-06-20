@@ -892,13 +892,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eed0a191727e784c81b73a22b08f7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text_ScoreRanking:
+  scoreRankingTexts:
   - {fileID: 1327157012}
   - {fileID: 1849974437}
   - {fileID: 41532093}
   - {fileID: 115031349}
   - {fileID: 484942617}
-  highScore: 0
 --- !u!4 &964343156
 Transform:
   m_ObjectHideFlags: 0

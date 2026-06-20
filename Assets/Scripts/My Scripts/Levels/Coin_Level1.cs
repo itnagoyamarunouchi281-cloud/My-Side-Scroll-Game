@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -12,6 +9,8 @@ public class Coin_Level1 : IClearlable
     public static UnityEvent OnCoinCountEvent = new UnityEvent();
     public static UnityEvent OnGameClearEvent = new UnityEvent();
 
+    private const string LastScoreKey = "LastScore";
+
     private int itemCounter;
     private bool isGameClear;
 
@@ -19,12 +18,12 @@ public class Coin_Level1 : IClearlable
     {
         return itemCounter;
     }
-    
-    private void GameClearScene()
+
+    private void SaveLastScore()
     {
-        PlayerPrefs.SetInt("LastScore", itemCounter);
+        PlayerPrefs.SetInt(LastScoreKey, itemCounter);
         PlayerPrefs.Save();
-    } 
+    }
 
     private void OnCoinCount()
     {
@@ -34,7 +33,7 @@ public class Coin_Level1 : IClearlable
     private void OnGameClear()
     {
         GameClear();
-        GameClearScene();
+        SaveLastScore();
         GameClearSceneChange();
     }
 
@@ -44,6 +43,12 @@ public class Coin_Level1 : IClearlable
         OnGameClearEvent.AddListener(OnGameClear);
     }
 
+    private void OnDisable()
+    {
+        OnCoinCountEvent.RemoveListener(OnCoinCount);
+        OnGameClearEvent.RemoveListener(OnGameClear);
+    }
+
     void Start()
     {
         ResetScore();
@@ -51,13 +56,10 @@ public class Coin_Level1 : IClearlable
 
     void Update()
     {
-        if (!isGameClear)
+        if (!isGameClear && clearNum <= itemCounter)
         {
-            if (clearNum <= itemCounter)
-            {
-                OnGameClearEvent.Invoke();
-                isGameClear = true;
-            }
+            OnGameClearEvent.Invoke();
+            isGameClear = true;
         }
     }
 

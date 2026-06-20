@@ -2797,6 +2797,7 @@ MonoBehaviour:
   - {fileID: 53037747}
   staticClear: {fileID: 1980959924}
   button_ranking: {fileID: 1652236513}
+  isTotalClear: 1
 --- !u!1 &2099105139
 GameObject:
   m_ObjectHideFlags: 0

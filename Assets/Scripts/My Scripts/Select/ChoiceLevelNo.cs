@@ -9,7 +9,7 @@ public class ChoiceLevelNo : MonoBehaviour
     [SerializeField] private StaticClear staticClear;
     [SerializeField] private Button button_ranking;
 
-    bool isTotalClear = false;
+    public bool isTotalClear = false;
     int i;
 
     void Start()
