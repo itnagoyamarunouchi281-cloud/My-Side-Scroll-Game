@@ -54,12 +54,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8f80a88f87ae12a4999a8638d2a65336, type: 3}
       propertyPath: m_Name
-      value: "\u5854\u306E\u9053_1"
+      value: "\u5854\u306E\u9053_3"
       objectReference: {fileID: 0}
     - target: {fileID: 8812547206751865924, guid: 8f80a88f87ae12a4999a8638d2a65336, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3eec4f1eec6dfb64a80284afad139154, type: 2}
+      objectReference: {fileID: 2100000, guid: 0039a2d92109a76448ea79205f779fe4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: 8f80a88f87ae12a4999a8638d2a65336, type: 3}
