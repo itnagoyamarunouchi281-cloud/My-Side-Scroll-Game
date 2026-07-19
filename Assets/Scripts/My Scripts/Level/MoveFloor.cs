@@ -4,36 +4,44 @@ using UnityEngine;
 
 public class MoveFloor : MonoBehaviour
 {
-    [SerializeField] private float timerA;
+    public float timerA;
+
+    [SerializeField] private float moveRange;
     [SerializeField] private float dir;
-    [SerializeField] private float moveRange = 7.0f;
 
     private Transform thistrans;
     private Vector3 pos;
     private Vector3 initPos;
-
+    
     void Start()
     {
-        //StartCoroutine(MoveTask());
         dir = 1;
+        initPos = this.transform.position;
+        thistrans = transform;
     }
 
     void Update()
     {
-        thistrans = this.transform;
         pos = thistrans.position;
-        
-        if (thistrans.position.y > initPos.y + moveRange)
+
+        // 常に移動させる（timerA を速度として使用）
+        pos.y += dir * timerA * Time.deltaTime;
+
+        float upper = initPos.y + moveRange;
+        float lower = initPos.y - moveRange;
+
+        // 範囲を超えたら位置を補正して方向を反転
+        if (pos.y > upper)
         {
+            pos.y = upper;
             dir = -1;
         }
-
-        if (thistrans.position.y < initPos.y - moveRange)
+        else if (pos.y < lower)
         {
+            pos.y = lower;
             dir = 1;
         }
 
-        pos.y += dir * Time.deltaTime;
         thistrans.position = pos;
     }
 

@@ -9,31 +9,16 @@ public class Coin_Level1 : IClearlable
     public static UnityEvent OnCoinCountEvent = new UnityEvent();
     public static UnityEvent OnGameClearEvent = new UnityEvent();
 
-    private const string LastScoreKey = "LastScore";
-
-    private int itemCounter;
     private bool isGameClear;
-
-    public int GetItemCounter()
-    {
-        return itemCounter;
-    }
-
-    private void SaveLastScore()
-    {
-        PlayerPrefs.SetInt(LastScoreKey, itemCounter);
-        PlayerPrefs.Save();
-    }
 
     private void OnCoinCount()
     {
-        AddScore();
+        AddScore(1);
     }
 
     private void OnGameClear()
     {
         GameClear();
-        SaveLastScore();
         GameClearSceneChange();
     }
 
@@ -56,7 +41,7 @@ public class Coin_Level1 : IClearlable
 
     void Update()
     {
-        if (!isGameClear && clearNum <= itemCounter)
+        if (!isGameClear && clearNum <= GameManager.Instance.scoreNum)
         {
             OnGameClearEvent.Invoke();
             isGameClear = true;
@@ -65,13 +50,13 @@ public class Coin_Level1 : IClearlable
 
     private void ResetScore()
     {
-        itemCounter = 0;
-        coinAddText.text = $"{EnemyData.EnemyType.COIN}:{itemCounter} / {clearNum}";
+        GameManager.Instance.scoreNum = 0;
+        coinAddText.text = $"{EnemyData.EnemyType.COIN}:{GameManager.Instance.scoreNum} / {clearNum}";
     }
 
-    private void AddScore()
+    private void AddScore(int point)
     {
-        itemCounter += GameManager.Instance.CurrentScore;
-        coinAddText.text = $"{EnemyData.EnemyType.COIN}:{itemCounter} / {clearNum}";
+        GameManager.Instance.scoreNum += point;
+        coinAddText.text = $"{EnemyData.EnemyType.COIN}:{GameManager.Instance.scoreNum} / {clearNum}";
     }
 }

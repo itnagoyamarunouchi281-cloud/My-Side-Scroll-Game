@@ -24,10 +24,10 @@ EditorBuildSettings:
     path: Assets/Scenes/3DS/Level4.unity
     guid: dd2e3c477c226d14e96f8b5a50c70e0f
   - enabled: 1
-    path: Assets/Scenes/Game Clear.unity
+    path: Assets/Scenes/GameClear.unity
     guid: 95d6fecc793921f4a9db0e6812d60703
   - enabled: 1
-    path: Assets/Scenes/Game Over.unity
+    path: Assets/Scenes/GameOver.unity
     guid: a42e15d25c680ba429afb7a397de2f4c
   - enabled: 1
     path: Assets/Scenes/ClearScene.unity

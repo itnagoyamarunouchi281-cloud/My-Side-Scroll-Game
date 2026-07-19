@@ -14,6 +14,9 @@ public class TestRanking : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.SetInt(LastScoreKey, GameManager.Instance.scoreNum);
+        PlayerPrefs.Save();
+
         AddLastScoreToRanking();
         DisplayRanking();
     }

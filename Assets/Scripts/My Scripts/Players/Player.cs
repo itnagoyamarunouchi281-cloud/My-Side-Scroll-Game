@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [Header("移動")]
     public float jumpPower = 8f;
     public float gravity = 20f;
+    [SerializeField] private int maxJumpCount = 2;
 
     [Header("参照")]
     public GameObject charaobj;
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private bool isJump;
     private bool isWalking;
+    private int jumpCount;
 
     private GameObject scissors1;
 
@@ -119,10 +121,16 @@ public class Player : MonoBehaviour
     // -------------------------
     void Jump()
     {
-        if (!isGrounded) return;
+        if (jumpCount >= maxJumpCount) return;
+
+        if (isGrounded)
+        {
+            jumpCount = 0;
+        }
 
         velocity.y = jumpPower;
         isJump = true;
+        jumpCount++;
     }
 
     // -------------------------
@@ -140,6 +148,7 @@ public class Player : MonoBehaviour
         if (isGrounded)
         {
             isJump = false;
+            jumpCount = 0;
         }
     }
 

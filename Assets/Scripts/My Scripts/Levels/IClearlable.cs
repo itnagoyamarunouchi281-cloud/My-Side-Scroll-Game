@@ -11,6 +11,6 @@ public class IClearlable : MonoBehaviour
 
     public void GameClearSceneChange()
     {
-        FadeManager.Instance.LoadScene("Game Clear", 2.0f);
+        FadeManager.Instance.LoadScene("GameClear", 2.0f);
     }
 }
