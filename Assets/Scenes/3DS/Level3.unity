@@ -494,8 +494,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f231a3531130043a2659869dbb7855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearNum: 18
+  clearNum: 12
+  levelNo: 3
   enemyDeadText: {fileID: 777691660}
+  cSVLoader: {fileID: 2146241673977608776}
 --- !u!4 &32868843
 Transform:
   m_ObjectHideFlags: 0
@@ -523,8 +525,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d3749a10058e4b438bfb831a373c754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearNum: 100
+  clearNum: 70
+  levelNo: 3
   coinAddText: {fileID: 1748224583}
+  cSVLoader: {fileID: 2146241673977608776}
 --- !u!1001 &34446987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25342,6 +25346,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f8ad80bb0fe5bc429eb1fa4f1be70c1, type: 3}
+--- !u!114 &2146241673977608776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4887120256140582405, guid: 8f8ad80bb0fe5bc429eb1fa4f1be70c1, type: 3}
+  m_PrefabInstance: {fileID: 2146241673977608775}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993a8f2baccb49741adbee4b294ca20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7898622041326899519
 PrefabInstance:
   m_ObjectHideFlags: 0

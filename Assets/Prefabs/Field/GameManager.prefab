@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6782433593623532522}
   - component: {fileID: 7705679675494331792}
+  - component: {fileID: 4887120256140582405}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,4 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1daabe6dab7654ca9bab4c3661e190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentScore: 0
+  scoreNum: 0
+--- !u!114 &4887120256140582405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8243725108077237011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993a8f2baccb49741adbee4b294ca20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  csvURL: https://docs.google.com/spreadsheets/d/1nhtxfbF2W1FIY_DHkq4j8ZYVO9KgHHdID8jWsj_HEJU/export?format=csv
+  stageList: []
