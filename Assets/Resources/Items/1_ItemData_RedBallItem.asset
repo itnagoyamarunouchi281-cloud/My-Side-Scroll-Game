@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35d74da2cbac03f48822882ebb3e896c, type: 3}
-  m_Name: 1_ItemData
+  m_Name: 1_ItemData_RedBallItem
   m_EditorClassIdentifier: 
   itemType: 1
   icon: {fileID: -2413806693520163455, guid: 926d061bb57177642874da05a81f7e1d, type: 3}

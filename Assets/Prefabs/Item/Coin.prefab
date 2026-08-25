@@ -63,6 +63,11 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -84,9 +89,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &10093055674106969
 CapsuleCollider:
@@ -149,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6057ff3dc3d3f944fa3a03cb46ad61fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: f8421fd295484804d8d6fb0f88266ea2, type: 2}
+  itemData: {fileID: 11400000, guid: 4e504fef1998a174fb4deb437b3db56d, type: 2}
   stasText_1: {fileID: 6993478421085548958}
   stasText_2: {fileID: 5009365409256351726}
 --- !u!1 &2067596093521216596

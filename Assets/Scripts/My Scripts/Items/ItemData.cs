@@ -9,9 +9,10 @@ public class ItemData : ScriptableObject
 {
     public enum Type
     {
-        COIN,
+        A_COIN,
+        B_COIN,
         SPHERE,
-        CUBE,
+        KEY,
 
         MAX_ITEM
     }

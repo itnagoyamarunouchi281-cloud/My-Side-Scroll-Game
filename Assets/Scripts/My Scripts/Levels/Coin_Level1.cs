@@ -4,7 +4,6 @@ using UnityEngine.Events;
 
 public class Coin_Level1 : IClearlable
 {
-    public int clearNum;
     public int levelNo;
     public Text coinAddText;
 
@@ -13,8 +12,10 @@ public class Coin_Level1 : IClearlable
     public static UnityEvent OnCoinCountEvent = new UnityEvent();
     public static UnityEvent OnGameClearEvent = new UnityEvent();
 
+    private int clearNum;
     private int coinNum = 1;
     private bool isGameClear;
+    private bool isDataLoaded; // ★データがロード完了したか管理するフラグ
 
     private void OnCoinCount()
     {
@@ -30,7 +31,6 @@ public class Coin_Level1 : IClearlable
     private void OnEnable()
     {
         OnCoinCountEvent.AddListener(OnCoinCount);
-        OnGameClearEvent.AddListener(OnGameClear);
     }
 
     private void OnDisable()
@@ -39,18 +39,49 @@ public class Coin_Level1 : IClearlable
         OnGameClearEvent.RemoveListener(OnGameClear);
     }
 
+    private void OnDestroy()
+    {
+        // イベント登録の解除（メモリリーク防止）
+        if (cSVLoader != null)
+        {
+            cSVLoader.OnLoaded -= LoadStageData;
+        }
+    }
+
     void Start()
     {
         ResetScore();
-        LoadStageData();
+        
+        if (cSVLoader != null)
+        {
+            // すでに読み込み済み（リストにデータがある）なら即実行
+            if (cSVLoader.stageList != null && cSVLoader.stageList.Count > 0)
+            {
+                LoadStageData();
+            }
+            else
+            {
+                // まだ読み込み中なら、完了イベントに登録しておく
+                cSVLoader.OnLoaded += LoadStageData;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("CSVLoader is not assigned or found.");
+        }
+
+        OnGameClearEvent.AddListener(OnGameClear);
     }
 
     void Update()
     {
-        if (!isGameClear && clearNum <= GameManager.Instance.scoreNum)
+        if(isGameClear == false)
         {
-            OnGameClearEvent.Invoke();
-            isGameClear = true;
+            if (isDataLoaded && clearNum <= GameManager.Instance.scoreNum)
+            {
+                OnGameClearEvent.Invoke();
+                isGameClear = true;
+            }
         }
     }
 
@@ -73,15 +104,16 @@ public class Coin_Level1 : IClearlable
             return;
         }
 
-        int lookupLevel = levelNo > 0 ? levelNo : clearNum;
-        StageData stage = cSVLoader.GetStageDataByLevel(lookupLevel);
+        StageData stage = cSVLoader.GetStageDataByLevel(levelNo);
         if (stage != null)
         {
+            Debug.Log("Coin: " + stage.Coin);
             clearNum = stage.Coin;
+            isDataLoaded = true; // ★正しく読み込めたら判定許可フラグを立てる
         }
         else
         {
-            Debug.LogWarning($"No stage data found for level {lookupLevel}.");
+            Debug.LogWarning($"No stage data found for level {levelNo}.");
         }
 
         coinAddText.text = $"{EnemyData.EnemyType.COIN}:{GameManager.Instance.scoreNum} / {clearNum}";

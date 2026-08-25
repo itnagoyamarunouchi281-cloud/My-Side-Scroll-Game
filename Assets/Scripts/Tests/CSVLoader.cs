@@ -10,6 +10,9 @@ public class CSVLoader : MonoBehaviour
 
     public List<StageData> stageList = new();
 
+    // 読み込み完了時に呼ぶイベントを追加
+    public System.Action OnLoaded;
+
     IEnumerator Start()
     {
         UnityWebRequest request = UnityWebRequest.Get(csvURL);
@@ -19,6 +22,9 @@ public class CSVLoader : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             ParseCSV(request.downloadHandler.text);
+            
+            // 読み込み完了をコールバックで通知
+            OnLoaded?.Invoke();
         }
         else
         {
@@ -62,18 +68,15 @@ public class CSVLoader : MonoBehaviour
             string[] cols = lines[i].Split(',');
             StageData data = new StageData();
 
-            data.Level = ParseInt(GetColumnValue(headers, cols, "Level", "Stage", "StageNo"));
+            // 正しい列名をそれぞれ1つだけ指定する
+            data.Level = ParseInt(GetColumnValue(headers, cols, "LevelNo"));
+            data.Quest = ParseInt(GetColumnValue(headers, cols, "KillEnemiesCount"));
+            data.Coin  = ParseInt(GetColumnValue(headers, cols, "GetCoinCount"));
+
+            // 読み込みバックアップ（LevelNoが空の場合は行番号を入れるなど）
             if (data.Level <= 0)
             {
                 data.Level = stageList.Count + 1;
-            }
-
-            data.Quest = ParseInt(GetColumnValue(headers, cols, "Quest", "Enemy", "EnemyCount", "KillCount"));
-            data.Coin = ParseInt(GetColumnValue(headers, cols, "Coin", "CoinCount", "Collect", "CoinGoal"));
-
-            if (data.Level <= 0 && data.Quest <= 0 && data.Coin <= 0)
-            {
-                continue;
             }
 
             stageList.Add(data);
@@ -105,7 +108,9 @@ public class CSVLoader : MonoBehaviour
                 }
 
                 string normalizedAlias = NormalizeHeader(alias);
-                if (headerName == normalizedAlias || headerName.Contains(normalizedAlias) || normalizedAlias.Contains(headerName))
+                
+                // Contains ではなく 完全一致(==) に変更する
+                if (headerName == normalizedAlias)
                 {
                     return row[headerIndex].Trim();
                 }

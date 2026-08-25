@@ -5,6 +5,8 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     [Header("移動")]
+    public float walkSpeed = 4f;
+    public float dashSpeed = 8f;
     public float jumpPower = 8f;
     public float gravity = 20f;
     [SerializeField] private int maxJumpCount = 2;
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
     private CharacterController controller;
     private KnockBack knock;
 
+    private float playerSpeed;
     private Vector3 velocity;
     private float inputX;
     private bool isGrounded;
@@ -69,8 +72,19 @@ public class Player : MonoBehaviour
     // -------------------------
     void Move()
     {
+        var isDashing = Input.GetKeyDown(KeyCode.LeftShift);
+
+        if(isDashing)
+        {
+            playerSpeed = inputX * dashSpeed;
+        }
+        else
+        {
+            playerSpeed = inputX * walkSpeed;
+        }
+
         // 横移動
-        velocity.x = inputX * 5f;
+        velocity.x = playerSpeed;
 
         // 向き
         if (inputX > 0)

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class Quest_Level_1 : IClearlable
 {
-    public int clearNum;
     public int levelNo;
     public Text enemyDeadText;
 
@@ -13,34 +12,88 @@ public class Quest_Level_1 : IClearlable
     public static UnityEvent OnEnemyDestroyCountEvent = new UnityEvent();
     public static UnityEvent OnGameClearEvent = new UnityEvent();
 
+    private int clearNum;
     private int enemyCounter;
     private int enemyNum = 1;
     private bool isGameClear;
+    private bool isDataLoaded; // ★データがロード完了したか管理するフラグ
 
     public int EnemyCounter {get => enemyCounter; }
+
+    private void OnQuestCount()
+    {
+        AddScore(enemyNum);
+    }
+
+    private void OnGameClear()
+    {
+        GameClear();
+        GameClearSceneChange();
+    }
+
+    private void OnEnable()
+    {
+        OnEnemyDestroyCountEvent.AddListener(() =>
+        {
+            OnQuestCount();
+        });
+    }
+
+    private void OnDisable()
+    {
+        OnEnemyDestroyCountEvent.RemoveListener(()=>
+        {
+            OnQuestCount();
+        });
+
+        OnGameClearEvent.RemoveListener(() =>
+        {
+            OnGameClear();
+        });
+    }
+
+    private void OnDestroy()
+    {
+        // イベント登録の解除（メモリリーク防止）
+        if (cSVLoader != null)
+        {
+            cSVLoader.OnLoaded -= LoadStageData;
+        }
+    }
 
     void Start()
     {
         ResetScore();
-        LoadStageData();
-
-        OnEnemyDestroyCountEvent.AddListener(() =>
+        
+        if (cSVLoader != null)
         {
-            AddScore(enemyNum);
-        });
+            // すでに読み込み済み（リストにデータがある）なら即実行
+            if (cSVLoader.stageList != null && cSVLoader.stageList.Count > 0)
+            {
+                LoadStageData();
+            }
+            else
+            {
+                // まだ読み込み中なら、完了イベントに登録しておく
+                cSVLoader.OnLoaded += LoadStageData;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("CSVLoader is not assigned or found.");
+        }
 
         OnGameClearEvent.AddListener(() =>
         {
-            GameClear();
-            GameClearSceneChange();
+            OnGameClear();
         });
     }
 
     private void Update()
     {
-        if (!isGameClear)
+        if (isGameClear == false)
         {
-            if (clearNum <= enemyCounter)
+            if (isDataLoaded &&clearNum <= enemyCounter)
             {
                 OnGameClearEvent.Invoke();
                 isGameClear = true;
@@ -67,15 +120,16 @@ public class Quest_Level_1 : IClearlable
             return;
         }
 
-        int lookupLevel = levelNo > 0 ? levelNo : clearNum;
-        StageData stage = cSVLoader.GetStageDataByLevel(lookupLevel);
+        StageData stage = cSVLoader.GetStageDataByLevel(levelNo);
         if (stage != null)
         {
+            Debug.Log("Quest: " + stage.Quest);
             clearNum = stage.Quest;
+            isDataLoaded = true; // ★正しく読み込めたら判定許可フラグを立てる
         }
         else
         {
-            Debug.LogWarning($"No stage data found for level {lookupLevel}.");
+            Debug.LogWarning($"No stage data found for level {levelNo}.");
         }
 
         enemyDeadText.text = $"{EnemyData.EnemyType.ENEMY}:{enemyCounter} / {clearNum}";
