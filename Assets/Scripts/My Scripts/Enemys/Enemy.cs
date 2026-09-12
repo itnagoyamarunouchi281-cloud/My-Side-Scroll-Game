@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
         {
             //Destroy(gameObject.transform.parent.gameObject);
 
-            Quest_Level_1.OnEnemyDestroyCountEvent.Invoke();
+            Quest_Level1.OnEnemyDefeatedEvent.Invoke();
 
             myEnemy.AddEnemy(enemyInfo.enemyData.GetEnemyType());
             Debug.Log(enemyInfo.enemyData.GetEnemyType());

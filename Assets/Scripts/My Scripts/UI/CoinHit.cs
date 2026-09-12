@@ -13,7 +13,7 @@ public class CoinHit : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Instantiate(effectObj, obj.transform.position, Quaternion.identity);
-            Coin_Level1.OnCoinCountEvent.Invoke();
+            Quest_Level1.OnCoinCountEvent.Invoke();
             SoundManager.Instance.PlaySE(SESoundData.SE.HITSE);
             Destroy(gameObject);
         }

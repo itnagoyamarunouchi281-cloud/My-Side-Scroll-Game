@@ -9,7 +9,7 @@ public class ItemHit : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // 例えば、アイテムを消す場合は以下のようにします
+            // 例えば、アイテムを消す場合は以下のようになります
             Destroy(gameObject);
         }
     }
